@@ -2,4 +2,4 @@
 
 # Installation
 
-`npm i @cig/core --save`
+`npm i @cig-platform/core --save`
