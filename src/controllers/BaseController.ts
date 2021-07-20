@@ -1,7 +1,7 @@
 import { Response } from 'express'
 import { getCustomRepository, ObjectType } from 'typeorm'
 
-import { ApiErrorType } from '../@types/errors'
+import { ApiErrorType } from '@Types/errors'
 
 export default class BaseController<T, I> {
   protected entity: ObjectType<T>;

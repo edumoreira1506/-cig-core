@@ -1,4 +1,4 @@
-import { ApiErrorType } from '../@types/errors'
+import { ApiErrorType } from '@Types/errors'
 
 export default class ApiError extends Error {
   constructor(message: string) {
