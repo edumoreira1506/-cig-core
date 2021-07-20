@@ -1,12 +1,12 @@
 {
   "name": "@cig-platform/core",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "",
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc",
+    "build": "tsc --declaration",
     "prepare": "npm run build",
     "version": "git add -A src",
     "postversion": "git push && git push --tags"
