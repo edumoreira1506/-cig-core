@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/edumoreira1506/-cig-core/issues"
   },
-  "homepage": "https://github.com/edumoreira1506/-cig-core#readme"
+  "homepage": "https://github.com/edumoreira1506/-cig-core#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "joi": "^17.4.1",
+    "typeorm": "^0.2.34"
+  }
 }
