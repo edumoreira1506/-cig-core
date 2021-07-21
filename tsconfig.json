@@ -19,20 +19,22 @@
     "emitDecoratorMetadata": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "baseUrl": ".",
+    "baseUrl": "./src",
     "paths": {
       "@Controllers/*": [
-        "src/controllers/*"
+        "controllers/*"
       ],
       "@Errors/*": [
-        "src/errors/*"
+        "errors/*"
       ],
       "@Types/*": [
-        "src/@types/*"
+        "@types/*"
       ],
       "@Middlewares/*": [
-        "src/middlewares/*"
+        "middlewares/*"
       ],
     }
-  }
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules"]
 }
