@@ -1,9 +1,9 @@
-import ApiError from '@Errors/ApiError'
+import ApiError from '@Errors/ApiError';
 
 export default class ValidationError extends ApiError {
   constructor(message: string) {
-    super(message)
+    super(message);
 
-    this.name = 'ValidationError'
+    this.name = 'ValidationError';
   }
 }
