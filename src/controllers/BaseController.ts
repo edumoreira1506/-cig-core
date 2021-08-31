@@ -29,4 +29,28 @@ export default class BaseController<T, I> {
       error
     });
   }
+
+  static errorHandler() {
+    return (_target: unknown, _propertyKey: string, descriptor: PropertyDescriptor): PropertyDescriptor => {
+      const originalMethod = descriptor.value;
+  
+      descriptor.value = function(...args: any[]) {
+        const response = args[1];
+
+        try {
+          const result = originalMethod.apply(this, args);
+                  
+          if (result && typeof result.then === 'function' && typeof result.catch === 'function') {
+            return result.catch((error: any) => BaseController.errorResponse(response, error?.getError?.() ?? error));
+          }
+  
+          return result;
+        } catch (error) {
+          return BaseController.errorResponse(response, error?.getError?.() ?? error);
+        }
+      };
+  
+      return descriptor;
+    };
+  }
 }
