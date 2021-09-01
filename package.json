@@ -49,6 +49,7 @@
     "@Controllers": "build/controllers",
     "@Types": "build/@types",
     "@Errors": "build/errors",
-    "@Middlewares": "build/middlewares"
+    "@Middlewares": "build/middlewares",
+    "@Decorators": "build/decorators"
   }
 }
