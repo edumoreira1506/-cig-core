@@ -25,6 +25,7 @@ module.exports = {
         '@Types': './src/@types',
         '@Constants': './src/constants',
         '@Middlewares': './src/middlewares',
+        '@Decorators': './src/decorators',
         '@Docs': './src/docs'
       }
     }]
@@ -32,4 +33,4 @@ module.exports = {
   ignore: [
     '**/*.test.ts'
   ]
-}
+};

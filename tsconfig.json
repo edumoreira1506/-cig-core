@@ -35,6 +35,9 @@
       "@Middlewares/*": [
         "middlewares/*"
       ],
+      "@Decorators/*": [
+        "decorators/*"
+      ]
     }
   },
   "include": ["src/**/*.ts"],
