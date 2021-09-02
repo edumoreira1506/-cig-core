@@ -53,4 +53,20 @@ export default class BaseController<T, I> {
       return descriptor;
     };
   }
+
+  static updateHandler(updateMessage: string) {
+    return (_target: unknown, _propertyKey: string, descriptor: PropertyDescriptor): PropertyDescriptor => {
+      const originalMethod = descriptor.value;
+
+      descriptor.value = async function(...args: any[]) {
+        const response = args[1];
+
+        await originalMethod.apply(this, args);
+
+        return BaseController.successResponse(response, { message: updateMessage });
+      };
+
+      return descriptor;
+    };
+  }
 }
