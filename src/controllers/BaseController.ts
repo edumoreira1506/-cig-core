@@ -54,7 +54,7 @@ export default class BaseController<T, I> {
     };
   }
 
-  static updateHandler(updateMessage: string) {
+  static actionHandler(updateMessage: string) {
     return (_target: unknown, _propertyKey: string, descriptor: PropertyDescriptor): PropertyDescriptor => {
       const originalMethod = descriptor.value;
 
@@ -64,22 +64,6 @@ export default class BaseController<T, I> {
         await originalMethod.apply(this, args);
 
         return BaseController.successResponse(response, { message: updateMessage });
-      };
-
-      return descriptor;
-    };
-  }
-
-  static removeHandler(removeMessage: string) {
-    return (_target: unknown, _propertyKey: string, descriptor: PropertyDescriptor): PropertyDescriptor => {
-      const originalMethod = descriptor.value;
-  
-      descriptor.value = async function(...args: any[]) {
-        const response = args[1];
-
-        await originalMethod.apply(this, args);
-
-        return BaseController.successResponse(response, { message: removeMessage });
       };
 
       return descriptor;
