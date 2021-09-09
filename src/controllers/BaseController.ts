@@ -45,7 +45,7 @@ export default class BaseController<T, I> {
           }
   
           return result;
-        } catch (error) {
+        } catch (error: any) {
           return BaseController.errorResponse(response, error?.getError?.() ?? error);
         }
       };
@@ -54,7 +54,7 @@ export default class BaseController<T, I> {
     };
   }
 
-  static updateHandler(updateMessage: string) {
+  static actionHandler(updateMessage: string) {
     return (_target: unknown, _propertyKey: string, descriptor: PropertyDescriptor): PropertyDescriptor => {
       const originalMethod = descriptor.value;
 
