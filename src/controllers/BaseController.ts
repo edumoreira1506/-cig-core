@@ -45,7 +45,7 @@ export default class BaseController<T, I> {
           }
   
           return result;
-        } catch (error) {
+        } catch (error: any) {
           return BaseController.errorResponse(response, error?.getError?.() ?? error);
         }
       };
@@ -64,6 +64,22 @@ export default class BaseController<T, I> {
         await originalMethod.apply(this, args);
 
         return BaseController.successResponse(response, { message: updateMessage });
+      };
+
+      return descriptor;
+    };
+  }
+
+  static removeHandler(removeMessage: string) {
+    return (_target: unknown, _propertyKey: string, descriptor: PropertyDescriptor): PropertyDescriptor => {
+      const originalMethod = descriptor.value;
+  
+      descriptor.value = async function(...args: any[]) {
+        const response = args[1];
+
+        await originalMethod.apply(this, args);
+
+        return BaseController.successResponse(response, { message: removeMessage });
       };
 
       return descriptor;
