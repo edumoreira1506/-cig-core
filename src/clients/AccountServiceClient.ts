@@ -28,9 +28,11 @@ export default class AccountServiceClient {
     });
   }
 
-  getUser(userId: string) {
+  async getUser(userId: string) {
     try {
-      return this._axiosClient.get<GetUserRequest>(`/users/${userId}`);
+      const response = await this._axiosClient.get<GetUserRequest>(`/users/${userId}`);
+
+      return response.data.user;
     } catch {
       return null;
     }
