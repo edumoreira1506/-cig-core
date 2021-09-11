@@ -26,7 +26,8 @@ module.exports = {
         '@Constants': './src/constants',
         '@Middlewares': './src/middlewares',
         '@Decorators': './src/decorators',
-        '@Docs': './src/docs'
+        '@Docs': './src/docs',
+        '@Configs': './src/configs'
       }
     }]
   ],

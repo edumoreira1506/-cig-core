@@ -40,6 +40,9 @@
       ],
       "@Decorators/*": [
         "decorators/*"
+      ],
+      "@Configs/*": [
+        "configs/*"
       ]
     }
   },

@@ -1,6 +1,6 @@
 {
   "name": "@cig-platform/core",
-  "version": "0.2.18",
+  "version": "0.2.19",
   "description": "",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -24,6 +24,7 @@
   "homepage": "https://github.com/edumoreira1506/-cig-core#readme",
   "dependencies": {
     "express": "^4.17.1",
+    "i18n": "^0.13.3",
     "joi": "^17.4.1",
     "typeorm": "^0.2.34"
   },
@@ -40,6 +41,7 @@
     "@babel/preset-env": "^7.14.8",
     "@babel/preset-typescript": "^7.14.5",
     "@types/express": "^4.17.13",
+    "@types/i18n": "^0.13.1",
     "@typescript-eslint/eslint-plugin": "^4.29.1",
     "@typescript-eslint/parser": "^4.29.1",
     "babel-plugin-module-resolver": "^4.1.0",
@@ -52,6 +54,7 @@
     "@Types": "build/@types",
     "@Errors": "build/errors",
     "@Middlewares": "build/middlewares",
-    "@Decorators": "build/decorators"
+    "@Decorators": "build/decorators",
+    "@Configs": "build/configs"
   }
 }
