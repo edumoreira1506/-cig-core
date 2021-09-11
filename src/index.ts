@@ -1,5 +1,5 @@
-export { default as BaseController } from '@Controllers/BaseController';
-export { default as ApiError } from '@Errors/ApiError';
-export { default as ValidationError } from '@Errors/ValidationError';
-export { default as withBodyValidation } from '@Middlewares/withBodyValidation';
-export { FindEntityErrorHandler } from '@Decorators/repository';
+export { default as BaseController } from './controllers/BaseController';
+export { default as ApiError } from './errors/ApiError';
+export { default as ValidationError } from './errors/ValidationError';
+export { default as withBodyValidation } from './middlewares/withBodyValidation';
+export { FindEntityErrorHandler } from './decorators/repository';
