@@ -54,6 +54,7 @@
     "@Types": "build/@types",
     "@Errors": "build/errors",
     "@Middlewares": "build/middlewares",
-    "@Decorators": "build/decorators"
+    "@Decorators": "build/decorators",
+    "@Configs": "build/configs"
   }
 }
