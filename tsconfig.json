@@ -20,6 +20,9 @@
     "emitDecoratorMetadata": true,
     "skipLibCheck": true,
     "allowJs": true,
+    "declaration": true,
+    "emitDeclarationOnly": true,
+    "isolatedModules": true,
     "forceConsistentCasingInFileNames": true,
     "baseUrl": "./src",
     "paths": {
