@@ -1,12 +1,12 @@
 {
   "name": "@cig-platform/core",
-  "version": "0.2.8",
+  "version": "0.2.18",
   "description": "",
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "scripts": {
     "test": "jest src/tests",
-    "build": "babel src --extensions \".ts\" --out-dir build --copy-files --no-copy-ignored && tsc --declaration --emitDeclarationOnly",
+    "build": "babel src --extensions \".ts\" --out-dir build --copy-files --no-copy-ignored && tsc --declaration --emitDeclarationOnly --declarationMap",
     "prepare": "npm run build",
     "version": "git add -A src",
     "postversion": "git push && git push --tags",
@@ -25,9 +25,11 @@
   "dependencies": {
     "express": "^4.17.1",
     "joi": "^17.4.1",
-    "module-alias": "^2.2.2",
     "typeorm": "^0.2.34"
   },
+  "files": [
+    "/build"
+  ],
   "devDependencies": {
     "@babel/cli": "^7.14.8",
     "@babel/core": "^7.14.8",
