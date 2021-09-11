@@ -28,6 +28,9 @@
     "module-alias": "^2.2.2",
     "typeorm": "^0.2.34"
   },
+  "files": [
+    "/build"
+  ],
   "devDependencies": {
     "@babel/cli": "^7.14.8",
     "@babel/core": "^7.14.8",
