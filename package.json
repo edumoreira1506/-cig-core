@@ -4,8 +4,6 @@
   "description": "",
   "main": "build/index.js",
   "types": "build/index.d.ts",
-  "module": "build/index.js",
-  "typings": "build/index.d.ts",
   "scripts": {
     "test": "jest src/tests",
     "build": "babel src --extensions \".ts\" --out-dir build --copy-files --no-copy-ignored && tsc --declaration --emitDeclarationOnly --declarationMap",
