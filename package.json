@@ -2,8 +2,8 @@
   "name": "@cig-platform/core",
   "version": "0.2.15",
   "description": "",
-  "main": "build/index.js",
-  "types": "build/index.d.ts",
+  "main": "index.js",
+  "types": "index.d.ts",
   "scripts": {
     "test": "jest src/tests",
     "build": "babel src --extensions \".ts\" --out-dir build --copy-files --no-copy-ignored && tsc --declaration --emitDeclarationOnly --declarationMap",
