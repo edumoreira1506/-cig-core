@@ -1,7 +1,8 @@
 import axios, { AxiosInstance } from 'axios';
 
-import { AppRequest, ErrorRequest } from '@Types/request';
+import { AppRequest } from '@Types/request';
 import { IPoultry, IPoultryUser } from '@Types/poultry';
+import { AppRequestErrorHandler } from '@Decorators/client';
 
 interface PostPoultrySuccessRequest extends AppRequest {
   poultry: IPoultry;
@@ -23,35 +24,20 @@ export default class PoultryServiceClient {
     });
   }
 
+  @AppRequestErrorHandler()
   async postPoultry(poultry: Partial<IPoultry>) {
-    try {
-      const response = await this._axiosClient.post<PostPoultrySuccessRequest>('/poultries', poultry);
+    const response = await this._axiosClient.post<PostPoultrySuccessRequest>('/poultries', poultry);
 
-      return response.data.poultry;
-    } catch (error) {
-      if (axios.isAxiosError(error))  {
-        const response = error?.response?.data ?? {} as ErrorRequest;
-
-        throw response.error;
-      }
-
-      return undefined;
-    }
+    return response.data.poultry;
   }
 
+  @AppRequestErrorHandler()
   async postPoultryUser(poultryUser: Partial<IPoultryUser>) {
-    try {
-      const response = await this._axiosClient.post<PostPoultrySuccessRequest>(`/poultries/${poultryUser?.poultryId ?? ''}/users`, { userId: poultryUser?.userId });
+    const response = await this._axiosClient.post<PostPoultrySuccessRequest>(
+      `/poultries/${poultryUser?.poultryId ?? ''}/users`,
+      { userId: poultryUser?.userId }
+    );
 
-      return response.data.poultry;
-    } catch (error) {
-      if (axios.isAxiosError(error))  {
-        const response = error?.response?.data ?? {} as ErrorRequest;
-
-        throw response.error;
-      }
-
-      return undefined;
-    }
+    return response.data.poultry;
   }
 }

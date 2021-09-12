@@ -2,7 +2,8 @@ import axios, { AxiosInstance } from 'axios';
 
 import { IUser } from '@Types/user';
 import { FindEntityErrorHandler } from '@Decorators/repository';
-import { AppRequest, ErrorRequest } from '@Types/request';
+import { AppRequest } from '@Types/request';
+import { AppRequestErrorHandler } from '@Decorators/client';
 
 interface GetUserRequest extends AppRequest {
   user: IUser;
@@ -33,20 +34,11 @@ export default class AccountServiceClient {
     });
   }
 
+  @AppRequestErrorHandler()
   async postUser(user: Partial<IUser>) {
-    try {
-      const response = await this._axiosClient.post<PostUserSuccessRequest>('/users', user);
+    const response = await this._axiosClient.post<PostUserSuccessRequest>('/users', user);
 
-      return response.data.user;
-    } catch (error) {
-      if (axios.isAxiosError(error))  {
-        const response = error?.response?.data ?? {} as ErrorRequest;
-
-        throw response.error;
-      }
-
-      return undefined;
-    }
+    return response.data.user;
   }
 
   @FindEntityErrorHandler()
