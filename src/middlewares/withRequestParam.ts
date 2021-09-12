@@ -5,13 +5,13 @@ import NotFoundError from '@Errors/NotFoundError';
 import BaseController from '@Controllers/BaseController';
 import BaseRepository from '@Repositories/BaseRepository';
 
-export const withRequestParam = <R extends BaseRepository<any>, E, T extends ExpressRequest>(
+export default function withRequestParam<R extends BaseRepository<any>, E, T extends ExpressRequest>(
   paramName: string,
   requestParamName: string,
   controller: BaseController<E, R>,
   errorCallback: (res: Response, error: ApiError) => Response = BaseController.errorResponse,
   repository?: R,
-) => {
+) {
   type Request = ExpressRequest & {
     [requestParamName: string]: T;
   }
@@ -29,4 +29,4 @@ export const withRequestParam = <R extends BaseRepository<any>, E, T extends Exp
       })
       .catch((error) => errorCallback(response, error?.getError?.() ?? error));
   };
-};
+}
