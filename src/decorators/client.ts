@@ -13,9 +13,11 @@ export const AppRequestErrorHandler = () => {
         if (result && typeof result.then === 'function' && typeof result.catch === 'function') {
           return result.catch((error: any) => {
             if (axios.isAxiosError(error))  {
+              console.log(error);
               const response = error?.response?.data ?? {} as ErrorRequest;
-      
-              throw response.error;
+              console.log(response);
+
+              return response.error;
             }
       
             return undefined;

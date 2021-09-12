@@ -9,6 +9,15 @@ interface PostPoultrySuccessRequest extends AppRequest {
   message: string;
 }
 
+interface PostPoultryUserSuccessRequest extends AppRequest {
+  poultryUser: {
+    id: string;
+    userId: string;
+    poultryId: string;
+  }
+  message: string;
+}
+
 export default class PoultryServiceClient {
   _axiosClient: AxiosInstance;
 
@@ -33,11 +42,11 @@ export default class PoultryServiceClient {
 
   @AppRequestErrorHandler()
   async postPoultryUser(poultryUser: Partial<IPoultryUser>) {
-    const response = await this._axiosClient.post<PostPoultrySuccessRequest>(
+    const response = await this._axiosClient.post<PostPoultryUserSuccessRequest>(
       `/poultries/${poultryUser?.poultryId ?? ''}/users`,
       { userId: poultryUser?.userId }
     );
 
-    return response.data.poultry;
+    return response.data.poultryUser;
   }
 }
