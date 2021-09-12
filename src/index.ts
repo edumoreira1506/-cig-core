@@ -5,6 +5,7 @@ export { default as NotFoundError } from './errors/NotFoundError';
 export { default as AuthError } from './errors/AuthError';
 export { default as withBodyValidation } from './middlewares/withBodyValidation';
 export { default as AccountServiceClient } from './clients/AccountServiceClient';
+export { default as PoultryServiceClient } from './clients/PoultryServiceClient';
 export { default as BaseRepository } from './repositories/BaseRepository';
 export { default as withRequestParam } from './middlewares/withRequestParam';
 export { FindEntityErrorHandler } from './decorators/repository';
