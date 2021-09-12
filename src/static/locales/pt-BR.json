@@ -1,3 +1,4 @@
 {
-	"errors.not-found": "Recurso não encontrado"
+	"errors.not-found": "Recurso não encontrado",
+	"auth.errors.invalid-login": "E-mail ou senha inválido"
 }
