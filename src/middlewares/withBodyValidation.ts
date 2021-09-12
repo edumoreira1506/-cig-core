@@ -1,9 +1,9 @@
 import { NextFunction, Request, Response } from 'express';
 import { ObjectSchema } from 'joi';
 
-import BaseController from '@Controllers/BaseController';
-import { ApiErrorType } from '@Types/errors';
-import ValidationError from '@Errors/ValidationError';
+import BaseController from '../controllers/BaseController';
+import { ApiErrorType } from '../@types/errors';
+import ValidationError from '../errors/ValidationError';
 
 export const withBodyValidationFactory = (errorCallback: (res: Response, error: ApiErrorType) => Response) =>
   (schema: ObjectSchema) =>

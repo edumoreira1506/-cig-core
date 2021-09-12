@@ -1,5 +1,5 @@
-import NotFoundError from '@Errors/NotFoundError';
-import withRequestParamFactory from '@Middlewares/withRequestParam';
+import NotFoundError from '../../errors/NotFoundError';
+import withRequestParamFactory from '../../middlewares/withRequestParam';
 
 describe('withRequestParam', () => {
   it('calls next when entity exists', async () => {
@@ -10,12 +10,12 @@ describe('withRequestParam', () => {
     const mockRepository = {
       findById: jest.fn().mockResolvedValue(entity)
     };
-    const mockController = {
+    const mockController: any = {
       repository: mockRepository
     };
     const withUserParam = withRequestParamFactory(mockParam, mockRequestParam, mockController, mockErrorCallback);
-    const mockRequest = {};
-    const mockResponse = {};
+    const mockRequest: any = {};
+    const mockResponse: any = {};
     const mockNext = jest.fn();
 
     await withUserParam(mockRequest, mockResponse, mockNext);
@@ -33,12 +33,12 @@ describe('withRequestParam', () => {
     const mockRepository = {
       findById: jest.fn().mockRejectedValue(error)
     };
-    const mockController = {
+    const mockController: any = {
       repository: mockRepository
     };
     const withUserParam = withRequestParamFactory(mockParam, mockRequestParam, mockController, mockErrorCallback);
     const mockRequest = {};
-    const mockResponse = {};
+    const mockResponse: any = {};
     const mockNext = jest.fn();
 
     await withUserParam(mockRequest, mockResponse, mockNext);
@@ -55,12 +55,12 @@ describe('withRequestParam', () => {
     const mockRepository = {
       findById: jest.fn().mockResolvedValue(entity)
     };
-    const mockController = {
+    const mockController: any = {
       repository: mockRepository
     };
     const withUserParam = withRequestParamFactory(mockParam, mockRequestParam, mockController, mockErrorCallback);
     const mockRequest = {};
-    const mockResponse = {};
+    const mockResponse: any = {};
     const mockNext = jest.fn();
 
     await withUserParam(mockRequest, mockResponse, mockNext);

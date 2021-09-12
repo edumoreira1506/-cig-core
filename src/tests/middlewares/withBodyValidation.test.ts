@@ -1,7 +1,6 @@
 import Joi from 'joi';
 
-import { withBodyValidationFactory } from '@Middlewares/withBodyValidation';
-import { expect } from '@jest/globals';
+import { withBodyValidationFactory } from '../../middlewares/withBodyValidation';
 
 describe('withBodyValidation', () => {
   it('validates the object', () => {
@@ -11,12 +10,12 @@ describe('withBodyValidation', () => {
     });
     const withBodyValidation = withBodyValidationFactory(mockErrorCallback)(mockSchema);
 
-    const mockRequest = {
+    const mockRequest: any = {
       body: {
         foo: null
       }
     };
-    const mockResponse = {};
+    const mockResponse: any = {};
     const mockNext = jest.fn();
 
     withBodyValidation(mockRequest, mockResponse, mockNext);
@@ -32,12 +31,12 @@ describe('withBodyValidation', () => {
     });
     const withBodyValidation = withBodyValidationFactory(mockErrorCallback)(mockSchema);
 
-    const mockRequest = {
+    const mockRequest: any = {
       body: {
         foo: 'Valid foo'
       }
     };
-    const mockResponse = {};
+    const mockResponse: any = {};
     const mockNext = jest.fn();
 
     withBodyValidation(mockRequest, mockResponse, mockNext);

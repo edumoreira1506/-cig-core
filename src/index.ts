@@ -10,3 +10,4 @@ export { default as withRequestParam } from './middlewares/withRequestParam';
 export { FindEntityErrorHandler } from './decorators/repository';
 export * from './@types/user';
 export * from './@types/poultry';
+export * from './@types/request';

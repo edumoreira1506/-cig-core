@@ -1,7 +1,7 @@
 import { Repository } from 'typeorm';
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 
-import { FindEntityErrorHandler } from '@Decorators/repository';
+import { FindEntityErrorHandler } from '../decorators/repository';
 
 interface BaseEntity {
   id: string;
