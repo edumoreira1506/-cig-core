@@ -1,4 +1,4 @@
-import BaseController from '@Controllers/BaseController';
+import BaseController from '../../controllers/BaseController';
 
 describe('BaseController', () => {
   describe('actionHandler', () => {
@@ -13,7 +13,7 @@ describe('BaseController', () => {
       class ExampleClass {
         @BaseController.actionHandler(mockExampleMessage)
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        static foo(_request, _response) {
+        static foo(_request: any, _response: any) {
           return;
         }
       }
@@ -36,7 +36,7 @@ describe('BaseController', () => {
       class ExampleClass {
         @BaseController.errorHandler()
         // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        static foo(_request, _response) {
+        static foo(_request: any, _response: any) {
           throw mockError;
         }
       }

@@ -46,6 +46,9 @@
       ],
       "@Repositories/*": [
         "repositories/*"
+      ],
+      "@Clients/*": [
+        "clients/*"
       ]
     }
   },

@@ -1,9 +1,9 @@
 import { NextFunction, Response } from 'express';
 
-import ApiError from '@Errors/ApiError';
-import NotFoundError from '@Errors/NotFoundError';
-import BaseController from '@Controllers/BaseController';
-import BaseRepository from '@Repositories/BaseRepository';
+import ApiError from '../errors/ApiError';
+import NotFoundError from '../errors/NotFoundError';
+import BaseController from '../controllers/BaseController';
+import BaseRepository from '../repositories/BaseRepository';
 
 export default function withRequestParam<R extends BaseRepository<any>, E>(
   paramName: string,

@@ -27,7 +27,8 @@ module.exports = {
         '@Middlewares': './src/middlewares',
         '@Decorators': './src/decorators',
         '@Docs': './src/docs',
-        '@Configs': './src/configs'
+        '@Configs': './src/configs',
+        '@Clients': './src/clients'
       }
     }]
   ],

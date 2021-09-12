@@ -1,8 +1,8 @@
 import axios, { AxiosInstance } from 'axios';
 
-import { AppRequest } from '@Types/request';
-import { IPoultry, IPoultryUser } from '@Types/poultry';
-import { AppRequestErrorHandler } from '@Decorators/client';
+import { AppRequest } from '../@types/request';
+import { IPoultry, IPoultryUser } from '../@types/poultry';
+import { AppRequestErrorHandler } from '../decorators/client';
 
 interface PostPoultrySuccessRequest extends AppRequest {
   poultry: IPoultry;

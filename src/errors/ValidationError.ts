@@ -1,4 +1,4 @@
-import ApiError from '@Errors/ApiError';
+import ApiError from '../errors/ApiError';
 
 export default class ValidationError extends ApiError {
   constructor(message: string) {

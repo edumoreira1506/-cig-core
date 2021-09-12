@@ -1,9 +1,9 @@
 import axios, { AxiosInstance } from 'axios';
 
-import { IUser } from '@Types/user';
-import { FindEntityErrorHandler } from '@Decorators/repository';
-import { AppRequest } from '@Types/request';
-import { AppRequestErrorHandler } from '@Decorators/client';
+import { IUser } from '../@types/user';
+import { FindEntityErrorHandler } from '../decorators/repository';
+import { AppRequest } from '../@types/request';
+import { AppRequestErrorHandler } from '../decorators/client';
 
 interface GetUserRequest extends AppRequest {
   user: IUser;

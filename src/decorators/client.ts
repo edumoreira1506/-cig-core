@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { ErrorRequest } from '@Types/request';
+import { ErrorRequest } from '../@types/request';
 
 export const AppRequestErrorHandler = () => {
   return (_target: unknown, _propertyKey: string, descriptor: PropertyDescriptor): PropertyDescriptor => {
