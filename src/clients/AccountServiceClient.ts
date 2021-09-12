@@ -2,10 +2,7 @@ import axios, { AxiosInstance } from 'axios';
 
 import { IUser } from '@Types/user';
 import { FindEntityErrorHandler } from '@Decorators/repository';
-
-interface AppRequest {
-  ok: boolean;
-}
+import { AppRequest, ErrorRequest } from '@Types/request';
 
 interface GetUserRequest extends AppRequest {
   user: IUser;
@@ -14,13 +11,6 @@ interface GetUserRequest extends AppRequest {
 interface PostUserSuccessRequest extends AppRequest {
   user: IUser;
   message: string;
-}
-
-interface PostUserErrorRquest extends AppRequest {
-  error: {
-    message: string;
-    name: string;
-  }
 }
 
 interface AuthUserRequest {
@@ -43,14 +33,14 @@ export default class AccountServiceClient {
     });
   }
 
-  async postUser(user: IUser) {
+  async postUser(user: Partial<IUser>) {
     try {
       const response = await this._axiosClient.post<PostUserSuccessRequest>('/users', user);
 
       return response.data.user;
     } catch (error) {
       if (axios.isAxiosError(error))  {
-        const response = error?.response?.data ?? {} as PostUserErrorRquest;
+        const response = error?.response?.data ?? {} as ErrorRequest;
 
         throw response.error;
       }
