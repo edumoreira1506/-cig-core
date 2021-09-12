@@ -43,6 +43,9 @@
       ],
       "@Configs/*": [
         "configs/*"
+      ],
+      "@Repositories/*": [
+        "repositories/*"
       ]
     }
   },

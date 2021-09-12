@@ -2,8 +2,9 @@ import { Response } from 'express';
 import { getCustomRepository, ObjectType } from 'typeorm';
 
 import { ApiErrorType } from '@Types/errors';
+import BaseRepository from '@Repositories/BaseRepository';
 
-export default class BaseController<T, I> {
+export default class BaseController<T, I extends BaseRepository<any>> {
   protected entity: ObjectType<T>;
 
   get repository(): I {
