@@ -1,18 +1,25 @@
 import axios, { AxiosInstance } from 'axios';
 
+import { IUser } from '@Types/user';
+import { FindEntityErrorHandler } from '@Decorators/repository';
+
 interface AppRequest {
   ok: boolean;
 }
 
 interface GetUserRequest extends AppRequest {
-  user: {
-    id: string;
-    email: string;
-    password: string;
+  user: IUser;
+}
+
+interface PostUserSuccessRequest extends AppRequest {
+  user: IUser;
+  message: string;
+}
+
+interface PostUserErrorRquest extends AppRequest {
+  error: {
+    message: string;
     name: string;
-    register: string;
-    birthDate: string;
-    active: boolean;
   }
 }
 
@@ -36,23 +43,33 @@ export default class AccountServiceClient {
     });
   }
 
-  async getUser(userId: string) {
+  async postUser(user: IUser) {
     try {
-      const response = await this._axiosClient.get<GetUserRequest>(`/users/${userId}`);
+      const response = await this._axiosClient.post<PostUserSuccessRequest>('/users', user);
 
       return response.data.user;
-    } catch {
-      return null;
+    } catch (error) {
+      if (axios.isAxiosError(error))  {
+        const response = error?.response?.data ?? {} as PostUserErrorRquest;
+
+        throw response.error;
+      }
+
+      return undefined;
     }
   }
 
-  async authUser(email: string, password: string) {
-    try {
-      const response = await this._axiosClient.post<AuthUserRequest>('/auth', { email, password });
+  @FindEntityErrorHandler()
+  async getUser(userId: string) {
+    const response = await this._axiosClient.get<GetUserRequest>(`/users/${userId}`);
 
-      return response.data.token;
-    } catch {
-      return null;
-    }
+    return response.data.user;
+  }
+
+  @FindEntityErrorHandler()
+  async authUser(email: string, password: string) {
+    const response = await this._axiosClient.post<AuthUserRequest>('/auth', { email, password });
+
+    return response.data.token;
   }
 }
