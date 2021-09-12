@@ -10,7 +10,6 @@ export default function withRequestParam<R extends BaseRepository<any>, E, T ext
   requestParamName: string,
   controller: BaseController<E, R>,
   errorCallback: (res: Response, error: ApiError) => Response = BaseController.errorResponse,
-  repository?: R,
 ) {
   type Request = ExpressRequest & {
     [requestParamName: string]: T;
@@ -19,7 +18,7 @@ export default function withRequestParam<R extends BaseRepository<any>, E, T ext
   return async (request: Request, response: Response, next: NextFunction): Promise<void | Response<string, Record<string, string>>> => {
     const id = request?.params?.[paramName] ?? '';
 
-    return (repository ?? controller.repository).findById(id)
+    return controller.repository.findById(id)
       .then(entity => {
         if (!entity) throw new NotFoundError();
 
