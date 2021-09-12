@@ -1,7 +1,7 @@
 import axios, { AxiosInstance } from 'axios';
 
 import { AppRequest, ErrorRequest } from '@Types/request';
-import { IPoultry } from '@Types/poultry';
+import { IPoultry, IPoultryUser } from '@Types/poultry';
 
 interface PostPoultrySuccessRequest extends AppRequest {
   poultry: IPoultry;
@@ -26,6 +26,22 @@ export default class PoultryServiceClient {
   async postPoultry(poultry: Partial<IPoultry>) {
     try {
       const response = await this._axiosClient.post<PostPoultrySuccessRequest>('/poultries', poultry);
+
+      return response.data.poultry;
+    } catch (error) {
+      if (axios.isAxiosError(error))  {
+        const response = error?.response?.data ?? {} as ErrorRequest;
+
+        throw response.error;
+      }
+
+      return undefined;
+    }
+  }
+
+  async postPoultryUser(poultryUser: Partial<IPoultryUser>) {
+    try {
+      const response = await this._axiosClient.post<PostPoultrySuccessRequest>(`/poultries/${poultryUser?.poultryId ?? ''}/users`, { userId: poultryUser?.userId });
 
       return response.data.poultry;
     } catch (error) {
