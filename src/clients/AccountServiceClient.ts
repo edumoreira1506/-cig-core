@@ -1,7 +1,10 @@
 import axios, { AxiosInstance } from 'axios';
 
-interface GetUserRequest {
+interface AppRequest {
   ok: boolean;
+}
+
+interface GetUserRequest extends AppRequest {
   user: {
     id: string;
     email: string;
@@ -11,6 +14,11 @@ interface GetUserRequest {
     birthDate: string;
     active: boolean;
   }
+}
+
+interface AuthUserRequest {
+  message: string;
+  token: string;
 }
 
 export default class AccountServiceClient {
@@ -33,6 +41,16 @@ export default class AccountServiceClient {
       const response = await this._axiosClient.get<GetUserRequest>(`/users/${userId}`);
 
       return response.data.user;
+    } catch {
+      return null;
+    }
+  }
+
+  async authUser(email: string, password: string) {
+    try {
+      const response = await this._axiosClient.post<AuthUserRequest>('/auth', { email, password });
+
+      return response.data.token;
     } catch {
       return null;
     }
