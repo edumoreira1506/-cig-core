@@ -1,9 +1,9 @@
 import { NextFunction, Response } from 'express';
 
-import ApiError from '../errors/ApiError';
-import NotFoundError from '../errors/NotFoundError';
-import BaseController from '../controllers/BaseController';
-import BaseRepository from '../repositories/BaseRepository';
+import ApiError from '@Errors/ApiError';
+import NotFoundError from '@Errors/NotFoundError';
+import BaseController from '@Controllers/BaseController';
+import BaseRepository from '@Repositories/BaseRepository';
 
 export default function withRequestParam<R extends BaseRepository<any>, E>(
   paramName: string,
@@ -15,13 +15,13 @@ export default function withRequestParam<R extends BaseRepository<any>, E>(
     const id = request?.params?.[paramName] ?? '';
 
     return controller.repository.findById(id)
-      .then(entity => {
+      .then((entity: any) => {
         if (!entity) throw new NotFoundError();
 
         request[requestParamName] = entity;
 
         next();
       })
-      .catch((error) => errorCallback(response, error?.getError?.() ?? error));
+      .catch((error: any) => errorCallback(response, error?.getError?.() ?? error));
   };
 }

@@ -1,5 +1,5 @@
-import ApiError from './ApiError';
-import i18n from '../configs/i18n';
+import ApiError from '@Errors/ApiError';
+import i18n from '@Configs/i18n';
 
 export default class AuthError extends ApiError {
   constructor() {

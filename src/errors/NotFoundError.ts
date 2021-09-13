@@ -1,5 +1,5 @@
-import ApiError from '../errors/ApiError';
-import i18n from '../configs/i18n';
+import ApiError from '@Errors/ApiError';
+import i18n from '@Configs/i18n';
 
 export default class NotFoundError extends ApiError {
   constructor() {

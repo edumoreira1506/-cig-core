@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import AccountServiceClient from '../../clients/AccountServiceClient';
+import AccountServiceClient from '@Clients/AccountServiceClient';
 
 describe('AccountServiceClient', () => {
   describe('.postUser', () => {

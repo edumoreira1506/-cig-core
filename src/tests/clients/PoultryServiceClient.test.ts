@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import PoultryServiceClient from '../../clients/PoultryServiceClient';
+import PoultryServiceClient from '@Clients/PoultryServiceClient';
 
 describe('PoultryServiceClient', () => {
   describe('.postPoultry', () => {

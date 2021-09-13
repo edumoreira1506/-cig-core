@@ -1,4 +1,4 @@
-import { FindEntityErrorHandler } from '../../decorators/repository';
+import { FindEntityErrorHandler } from '@Decorators/repository';
 
 describe('Repository decorators', () => {
   describe('FindEntityErrorHandler', () => {

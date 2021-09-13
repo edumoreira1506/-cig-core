@@ -1,4 +1,4 @@
-import BaseController from '../../controllers/BaseController';
+import BaseController from '@Controllers/BaseController';
 
 describe('BaseController', () => {
   describe('actionHandler', () => {

@@ -1,5 +1,5 @@
-import NotFoundError from '../../errors/NotFoundError';
-import withRequestParamFactory from '../../middlewares/withRequestParam';
+import NotFoundError from '@Errors/NotFoundError';
+import withRequestParamFactory from '@Middlewares/withRequestParam';
 
 describe('withRequestParam', () => {
   it('calls next when entity exists', async () => {
