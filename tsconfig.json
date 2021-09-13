@@ -48,6 +48,9 @@
       ],
       "@Clients/*": [
         "src/clients/*"
+      ],
+      "@Factories/*": [
+        "src/factories/*"
       ]
     }
   },

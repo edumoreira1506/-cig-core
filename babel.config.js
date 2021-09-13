@@ -28,7 +28,8 @@ module.exports = {
         '@Decorators': './src/decorators',
         '@Docs': './src/docs',
         '@Configs': './src/configs',
-        '@Clients': './src/clients'
+        '@Clients': './src/clients',
+        '@Factories': './src/factories'
       }
     }]
   ],
