@@ -24,31 +24,6 @@ describe('PoultryServiceClient', () => {
       expect(await poultryServiceClient.postPoultry(mockResponse.poultry)).toBe(mockResponse.poultry);
       expect(mockAxiosPost).toHaveBeenCalledWith('/poultries', mockResponse.poultry);
     });
-
-    it('returns an error when get an api error', async () => {
-      const mockResponse = {
-        ok: false,
-        error: {
-          message: 'example message',
-          name: 'example name'
-        }
-      };
-      const mockAxiosPost = jest.fn().mockRejectedValue({
-        response: {
-          data: mockResponse
-        }
-      });
-      const mockAxiosCreate = jest.fn().mockReturnValue({
-        post: mockAxiosPost
-      });
-
-      jest.spyOn(axios, 'create').mockImplementation(mockAxiosCreate);
-      jest.spyOn(axios, 'isAxiosError').mockReturnValue(true);
-
-      const poultryServiceClient = new PoultryServiceClient('');
-
-      expect(await poultryServiceClient.postPoultry({})).toBe(mockResponse.error);
-    });
   });
 
   describe('.postPoultryUser', () => {
@@ -74,31 +49,6 @@ describe('PoultryServiceClient', () => {
 
       expect(await poultryServiceClient.postPoultryUser(mockResponse.poultryUser)).toBe(mockResponse.poultryUser);
       expect(mockAxiosPost).toHaveBeenCalledWith(`/poultries/${mockResponse.poultryUser.poultryId}/users`, { userId: mockResponse.poultryUser.userId });
-    });
-
-    it('returns an error when get an api error', async () => {
-      const mockResponse = {
-        ok: false,
-        error: {
-          message: 'example message',
-          name: 'example name'
-        }
-      };
-      const mockAxiosPost = jest.fn().mockRejectedValue({
-        response: {
-          data: mockResponse
-        }
-      });
-      const mockAxiosCreate = jest.fn().mockReturnValue({
-        post: mockAxiosPost
-      });
-
-      jest.spyOn(axios, 'create').mockImplementation(mockAxiosCreate);
-      jest.spyOn(axios, 'isAxiosError').mockReturnValue(true);
-
-      const poultryServiceClient = new PoultryServiceClient('');
-
-      expect(await poultryServiceClient.postPoultryUser({})).toBe(mockResponse.error);
     });
   });
 });
