@@ -12,3 +12,4 @@ export { FindEntityErrorHandler } from './decorators/repository';
 export * from './@types/user';
 export * from './@types/poultry';
 export * from './@types/request';
+export * from './factories';
