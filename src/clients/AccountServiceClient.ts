@@ -1,7 +1,6 @@
 import axios, { AxiosInstance } from 'axios';
 
 import { IUser } from '../@types/user';
-import { FindEntityErrorHandler } from '../decorators/repository';
 import { AppRequest } from '../@types/request';
 import { AppRequestErrorHandler } from '../decorators/client';
 
