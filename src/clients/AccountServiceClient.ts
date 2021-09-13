@@ -41,14 +41,14 @@ export default class AccountServiceClient {
     return response.data.user;
   }
 
-  @FindEntityErrorHandler()
+  @AppRequestErrorHandler()
   async getUser(userId: string) {
     const response = await this._axiosClient.get<GetUserRequest>(`/users/${userId}`);
 
     return response.data.user;
   }
 
-  @FindEntityErrorHandler()
+  @AppRequestErrorHandler()
   async authUser(email: string, password: string) {
     const response = await this._axiosClient.post<AuthUserRequest>('/auth', { email, password });
 
