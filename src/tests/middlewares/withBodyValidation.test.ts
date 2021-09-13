@@ -1,6 +1,6 @@
 import Joi from 'joi';
 
-import { withBodyValidationFactory } from '../../middlewares/withBodyValidation';
+import { withBodyValidationFactory } from '@Middlewares/withBodyValidation';
 
 describe('withBodyValidation', () => {
   it('validates the object', () => {
