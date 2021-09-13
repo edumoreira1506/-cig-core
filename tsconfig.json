@@ -1,8 +1,7 @@
 {
   "compilerOptions": {
-    "moduleResolution": "node",
-    "target": "es2015",
-    "module": "es2015",
+    "target": "ES2020",
+    "module": "commonjs",
     "lib": [
       "ES2020"
     ],
@@ -24,31 +23,31 @@
     "emitDeclarationOnly": true,
     "isolatedModules": true,
     "forceConsistentCasingInFileNames": true,
-    "baseUrl": "./src",
+    "baseUrl": ".",
     "paths": {
       "@Controllers/*": [
-        "controllers/*"
+        "src/controllers/*"
       ],
       "@Errors/*": [
-        "errors/*"
+        "src/errors/*"
       ],
       "@Types/*": [
-        "@types/*"
+        "src/@types/*"
       ],
       "@Middlewares/*": [
-        "middlewares/*"
+        "src/middlewares/*"
       ],
       "@Decorators/*": [
-        "decorators/*"
+        "src/decorators/*"
       ],
       "@Configs/*": [
-        "configs/*"
+        "src/configs/*"
       ],
       "@Repositories/*": [
-        "repositories/*"
+        "src/repositories/*"
       ],
       "@Clients/*": [
-        "clients/*"
+        "src/clients/*"
       ]
     }
   },
