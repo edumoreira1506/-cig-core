@@ -1,6 +1,5 @@
 import faker from 'faker';
-
-import { IPoultryAddress } from '@Types/poultry';
+import { IPoultryAddress } from '@cig-platform/types';
 
 export default function poultryAddressFactory({
   city = faker.address.cityName(),

@@ -1,4 +1,4 @@
-import { ApiErrorType } from '@Types/errors';
+import { ApiErrorType } from '@cig-platform/types';
 
 export default class ApiError extends Error {
   constructor(message: string) {

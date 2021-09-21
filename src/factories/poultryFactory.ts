@@ -1,6 +1,5 @@
 import faker from 'faker';
-
-import { IPoultry } from '@Types/poultry';
+import { IPoultry } from '@cig-platform/types';
 
 import addressFactory from './poultryAddressFactory';
 
