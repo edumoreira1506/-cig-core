@@ -48,7 +48,7 @@
       ],
       "@Clients/*": [
         "src/clients/*"
-      ],
+      ]
     }
   },
   "include": ["src/**/*.ts"],
