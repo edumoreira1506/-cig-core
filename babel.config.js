@@ -29,7 +29,6 @@ module.exports = {
         '@Docs': './src/docs',
         '@Configs': './src/configs',
         '@Clients': './src/clients',
-        '@Factories': './src/factories'
       }
     }]
   ],

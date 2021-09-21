@@ -49,9 +49,6 @@
       "@Clients/*": [
         "src/clients/*"
       ],
-      "@Factories/*": [
-        "src/factories/*"
-      ]
     }
   },
   "include": ["src/**/*.ts"],

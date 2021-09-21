@@ -66,7 +66,6 @@
     "@Decorators": "build/decorators",
     "@Configs": "build/configs",
     "@Repositories": "build/repositories",
-    "@Clients": "build/clients",
-    "@Factories": "build/factories"
+    "@Clients": "build/clients"
   }
 }
