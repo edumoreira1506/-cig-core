@@ -1,6 +1,5 @@
 import faker from 'faker';
-
-import { IUser } from '@Types/user';
+import { IUser } from '@cig-platform/types';
 
 export default function userFactory({
   id = faker.datatype.uuid(),

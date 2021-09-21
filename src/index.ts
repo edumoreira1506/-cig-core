@@ -9,7 +9,4 @@ export { default as PoultryServiceClient } from './clients/PoultryServiceClient'
 export { default as BaseRepository } from './repositories/BaseRepository';
 export { default as withRequestParam } from './middlewares/withRequestParam';
 export { FindEntityErrorHandler } from './decorators/repository';
-export * from './@types/user';
-export * from './@types/poultry';
-export * from './@types/request';
 export * from './factories';

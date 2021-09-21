@@ -1,7 +1,6 @@
 import axios, { AxiosInstance } from 'axios';
+import { AppRequest, IPoultry, IPoultryUser } from '@cig-platform/types';
 
-import { AppRequest } from '@Types/request';
-import { IPoultry, IPoultryUser } from '@Types/poultry';
 import { AppRequestErrorHandler } from '@Decorators/client';
 
 interface PostPoultrySuccessRequest extends AppRequest {

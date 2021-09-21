@@ -1,8 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
 import { ObjectSchema } from 'joi';
+import { ApiErrorType } from '@cig-platform/types';
 
 import BaseController from '@Controllers/BaseController';
-import { ApiErrorType } from '@Types/errors';
 import ValidationError from '@Errors/ValidationError';
 
 export const withBodyValidationFactory = (errorCallback: (res: Response, error: ApiErrorType) => Response) =>
