@@ -1,4 +1,4 @@
-import { Repository } from 'typeorm';
+import { FindManyOptions, Repository } from 'typeorm';
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 
 import { FindEntityErrorHandler } from '@Decorators/repository';
@@ -17,6 +17,10 @@ export default class BaseRepository<T extends BaseEntity> extends Repository<T> 
   @FindEntityErrorHandler()
   findByField(fieldName: keyof T, fieldValue: any) {
     return this.findOne({ [fieldName]: fieldValue, active: true });
+  }
+
+  all(fields?: FindManyOptions<T>) {
+    return this.find(fields);
   }
 
   updateById(id: string, fields: QueryDeepPartialEntity<T>) {
