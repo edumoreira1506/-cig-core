@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { userFactory } from '@cig-platform/factories';
 
 import AccountServiceClient from '@Clients/AccountServiceClient';
 
@@ -52,14 +53,15 @@ describe('AccountServiceClient', () => {
   });
 
   describe('.authUser', () => {
-    it('returns the token', async () => {
-      const mockUser = {
+    it('returns the user', async () => {
+      const authUserData = {
         email: 'email',
         password: 'password'
       };
+      const user = userFactory(authUserData);
       const mockResponse = {
         ok: true,
-        token: 'fake token',
+        user
       };
       const mockAxiosPost = jest.fn().mockResolvedValue({
         data: mockResponse
@@ -72,8 +74,8 @@ describe('AccountServiceClient', () => {
 
       const accountServiceClient = new AccountServiceClient('');
 
-      expect(await accountServiceClient.authUser(mockUser.email, mockUser.password)).toBe(mockResponse.token);
-      expect(mockAxiosPost).toHaveBeenCalledWith('/auth', mockUser);
+      expect(await accountServiceClient.authUser(authUserData.email, authUserData.password)).toBe(mockResponse.user);
+      expect(mockAxiosPost).toHaveBeenCalledWith('/auth', authUserData);
     });
   });
 });
