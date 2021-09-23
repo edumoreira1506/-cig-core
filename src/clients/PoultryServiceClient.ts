@@ -1,5 +1,5 @@
 import axios, { AxiosInstance } from 'axios';
-import { AppRequest, IPoultry, IPoultryUser } from '@cig-platform/types';
+import { AppRequest, IPoultry, IPoultryUser, IUser } from '@cig-platform/types';
 
 import { AppRequestErrorHandler } from '@Decorators/client';
 
@@ -15,6 +15,10 @@ interface PostPoultryUserSuccessRequest extends AppRequest {
     poultryId: string;
   }
   message: string;
+}
+
+interface GetPoultriesSuccessRequest extends AppRequest {
+  poultries: IPoultry[]
 }
 
 export default class PoultryServiceClient {
@@ -47,5 +51,16 @@ export default class PoultryServiceClient {
     );
 
     return response.data.poultryUser;
+  }
+
+  @AppRequestErrorHandler()
+  async getPoultries(userId?: IUser['id']) {
+    const params = {
+      ...(userId ? { userId } : {})
+    };
+
+    const response = await this._axiosClient.get<GetPoultriesSuccessRequest>('/poultries', { params });
+
+    return response.data.poultries;
   }
 }
