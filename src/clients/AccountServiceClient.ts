@@ -12,9 +12,9 @@ interface PostUserSuccessRequest extends AppRequest {
   message: string;
 }
 
-interface AuthUserRequest {
+interface AuthUserRequest extends AppRequest {
   message: string;
-  token: string;
+  user: Required<IUser>;
 }
 
 export default class AccountServiceClient {
@@ -50,6 +50,6 @@ export default class AccountServiceClient {
   async authUser(email: string, password: string) {
     const response = await this._axiosClient.post<AuthUserRequest>('/auth', { email, password });
 
-    return response.data.token;
+    return response.data.user;
   }
 }
