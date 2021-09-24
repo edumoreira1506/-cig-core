@@ -1,14 +1,14 @@
 import axios from 'axios';
 import faker from 'faker';
 
-import PoultryServiceClient from '@Clients/PoultryServiceClient';
+import BreederServiceClient from '@Clients/BreederServiceClient';
 
-describe('PoultryServiceClient', () => {
-  describe('.postPoultry', () => {
-    it('returns the poultry', async () => {
+describe('BreederServiceClient', () => {
+  describe('.postBreeder', () => {
+    it('returns the breeder', async () => {
       const mockResponse = {
         ok: true,
-        poultry: {},
+        breeder: {},
         message: 'example message'
       };
       const mockAxiosPost = jest.fn().mockResolvedValue({
@@ -20,19 +20,19 @@ describe('PoultryServiceClient', () => {
 
       jest.spyOn(axios, 'create').mockImplementation(mockAxiosCreate);
 
-      const poultryServiceClient = new PoultryServiceClient('');
+      const breederServiceClient = new BreederServiceClient('');
 
-      expect(await poultryServiceClient.postPoultry(mockResponse.poultry)).toBe(mockResponse.poultry);
-      expect(mockAxiosPost).toHaveBeenCalledWith('/poultries', mockResponse.poultry);
+      expect(await breederServiceClient.postBreeder(mockResponse.breeder)).toBe(mockResponse.breeder);
+      expect(mockAxiosPost).toHaveBeenCalledWith('/breeders', mockResponse.breeder);
     });
   });
 
-  describe('.postPoultryUser', () => {
-    it('returns the poultry user', async () => {
+  describe('.postBreederUser', () => {
+    it('returns the breeder user', async () => {
       const mockResponse = {
         ok: true,
-        poultryUser: {
-          poultryId: 'id',
+        breederUser: {
+          breederId: 'id',
           userId: 'id'
         },
         message: 'example message'
@@ -46,18 +46,18 @@ describe('PoultryServiceClient', () => {
 
       jest.spyOn(axios, 'create').mockImplementation(mockAxiosCreate);
 
-      const poultryServiceClient = new PoultryServiceClient('');
+      const breederServiceClient = new BreederServiceClient('');
 
-      expect(await poultryServiceClient.postPoultryUser(mockResponse.poultryUser)).toBe(mockResponse.poultryUser);
-      expect(mockAxiosPost).toHaveBeenCalledWith(`/poultries/${mockResponse.poultryUser.poultryId}/users`, { userId: mockResponse.poultryUser.userId });
+      expect(await breederServiceClient.postBreederUser(mockResponse.breederUser)).toBe(mockResponse.breederUser);
+      expect(mockAxiosPost).toHaveBeenCalledWith(`/breeders/${mockResponse.breederUser.breederId}/users`, { userId: mockResponse.breederUser.userId });
     });
   });
 
-  describe('.getPoultries', () => {
-    it('returns all poultries', async () => {
+  describe('.getBreeders', () => {
+    it('returns all breeders', async () => {
       const mockResponse = {
         ok: true,
-        poultries: []
+        breeders: []
       };
       const mockAxiosGet = jest.fn().mockResolvedValue({
         data: mockResponse
@@ -68,17 +68,17 @@ describe('PoultryServiceClient', () => {
 
       jest.spyOn(axios, 'create').mockImplementation(mockAxiosCreate);
 
-      const poultryServiceClient = new PoultryServiceClient('');
+      const breederServiceClient = new BreederServiceClient('');
 
-      expect(await poultryServiceClient.getPoultries()).toBe(mockResponse.poultries);
-      expect(mockAxiosGet).toHaveBeenCalledWith('/poultries', { params: {} });
+      expect(await breederServiceClient.getBreeders()).toBe(mockResponse.breeders);
+      expect(mockAxiosGet).toHaveBeenCalledWith('/breeders', { params: {} });
     });
 
     it('sends userId as query param', async () => {
       const userId = faker.datatype.uuid();
       const mockResponse = {
         ok: true,
-        poultries: []
+        breeders: []
       };
       const mockAxiosGet = jest.fn().mockResolvedValue({
         data: mockResponse
@@ -89,10 +89,10 @@ describe('PoultryServiceClient', () => {
 
       jest.spyOn(axios, 'create').mockImplementation(mockAxiosCreate);
 
-      const poultryServiceClient = new PoultryServiceClient('');
+      const breederServiceClient = new BreederServiceClient('');
 
-      expect(await poultryServiceClient.getPoultries(userId)).toBe(mockResponse.poultries);
-      expect(mockAxiosGet).toHaveBeenCalledWith('/poultries', { params: { userId } });
+      expect(await breederServiceClient.getBreeders(userId)).toBe(mockResponse.breeders);
+      expect(mockAxiosGet).toHaveBeenCalledWith('/breeders', { params: { userId } });
     });
   });
 });
