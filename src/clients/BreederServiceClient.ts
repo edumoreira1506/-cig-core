@@ -58,8 +58,8 @@ export default class BreederServiceClient {
   }
 
   @AppRequestErrorHandler()
-  async updateBreeder(breederId: string, breeder: Partial<IBreeder>) {
-    await this._axiosClient.patch(`/breeders/${breederId}`, breeder);
+  updateBreeder(breederId: string, breeder: Partial<IBreeder>) {
+    return this._axiosClient.patch(`/breeders/${breederId}`, breeder);
   }
 
   @AppRequestErrorHandler()
