@@ -21,6 +21,10 @@ interface GetBreedersSuccessRequest extends AppRequest {
   breeders: IBreeder[]
 }
 
+interface GetBreederSuccessRequest extends AppRequest {
+  breeder: IBreeder;
+}
+
 export default class BreederServiceClient {
   _axiosClient: AxiosInstance;
 
@@ -62,5 +66,12 @@ export default class BreederServiceClient {
     const response = await this._axiosClient.get<GetBreedersSuccessRequest>('/breeders', { params });
 
     return response.data.breeders;
+  }
+
+  @AppRequestErrorHandler()
+  async getBreeder(breederId: IBreeder['id']) {
+    const response = await this._axiosClient.get<GetBreederSuccessRequest>(`/breeders/${breederId}`);
+
+    return response.data.breeder;
   }
 }
