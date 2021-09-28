@@ -58,6 +58,11 @@ export default class BreederServiceClient {
   }
 
   @AppRequestErrorHandler()
+  async updateBreeder(breederId: string, breeder: Partial<IBreeder>) {
+    await this._axiosClient.patch(`/breeders/${breederId}`, breeder);
+  }
+
+  @AppRequestErrorHandler()
   async getBreeders(userId?: IUser['id']) {
     const params = {
       ...(userId ? { userId } : {})
