@@ -29,6 +29,7 @@ module.exports = {
         '@Docs': './src/docs',
         '@Configs': './src/configs',
         '@Clients': './src/clients',
+        '@Utils': './src/utils'
       }
     }]
   ],

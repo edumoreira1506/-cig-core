@@ -10,4 +10,5 @@ export { default as BaseRepository } from './repositories/BaseRepository';
 export { default as withRequestParam } from './middlewares/withRequestParam';
 export { default as TokenService } from './services/TokenService';
 export * from './middlewares/withTokenAuthorization';
+export * from './utils/form';
 export { FindEntityErrorHandler } from './decorators/repository';
