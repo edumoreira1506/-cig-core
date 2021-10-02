@@ -8,4 +8,5 @@ export { default as AccountServiceClient } from './clients/AccountServiceClient'
 export { default as BreederServiceClient } from './clients/BreederServiceClient';
 export { default as BaseRepository } from './repositories/BaseRepository';
 export { default as withRequestParam } from './middlewares/withRequestParam';
+export * from './middlewares/withTokenAuthorization';
 export { FindEntityErrorHandler } from './decorators/repository';
