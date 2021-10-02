@@ -9,7 +9,9 @@ export const toFormData = (object: Record<string, any>) => {
         formData.append('files', file)
       ));
     } else {
-      formData.append(key, value);
+      const formattedValue = typeof value === 'object' ? JSON.stringify(value) : value || '';
+
+      formData.append(key, formattedValue);
     }
   });
 
