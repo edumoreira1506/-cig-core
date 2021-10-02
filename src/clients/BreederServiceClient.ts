@@ -2,6 +2,7 @@ import axios, { AxiosInstance } from 'axios';
 import { AppRequest, IBreeder, IBreederUser, IUser } from '@cig-platform/types';
 
 import { AppRequestErrorHandler } from '@Decorators/client';
+import { toFormData } from '@Utils/form';
 
 interface PostBreederSuccessRequest extends AppRequest {
   breeder: IBreeder;
@@ -59,7 +60,11 @@ export default class BreederServiceClient {
 
   @AppRequestErrorHandler()
   updateBreeder(breederId: string, breeder: Partial<IBreeder>) {
-    return this._axiosClient.patch(`/breeders/${breederId}`, breeder);
+    return this._axiosClient.patch(`/breeders/${breederId}`, toFormData(breeder), {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
   }
 
   @AppRequestErrorHandler()
