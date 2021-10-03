@@ -60,11 +60,7 @@ export default class BreederServiceClient {
 
   @AppRequestErrorHandler()
   updateBreeder(breederId: string, breeder: Partial<IBreeder>) {
-    return this._axiosClient.patch(`/breeders/${breederId}`, toFormData(breeder), {
-      headers: {
-        'Content-Type': 'multipart/form-data'
-      }
-    });
+    return this._axiosClient.patch(`/breeders/${breederId}`, toFormData(breeder));
   }
 
   @AppRequestErrorHandler()
