@@ -32,6 +32,12 @@ export default class BreederServiceClient {
   constructor(breederServiceUrl: string) {
     this._axiosClient = axios.create({
       baseURL: breederServiceUrl,
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH',
+      }
     });
   }
 
@@ -54,7 +60,11 @@ export default class BreederServiceClient {
 
   @AppRequestErrorHandler()
   updateBreeder(breederId: string, breeder: Partial<IBreeder>) {
-    return this._axiosClient.patch(`/breeders/${breederId}`, toFormData(breeder));
+    return this._axiosClient.patch(`/breeders/${breederId}`, toFormData(breeder), {
+      headers: {
+        'Content-Type': 'multipart/form-data'
+      }
+    });
   }
 
   @AppRequestErrorHandler()

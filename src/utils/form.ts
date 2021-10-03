@@ -5,8 +5,8 @@ export const toFormData = (object: Record<string, any>) => {
 
   Object.entries(object).forEach(([key, value]) => {
     if (key === 'files') {
-      value.forEach((file: { originalname: string; buffer: Buffer; }) => {
-        formData.append('files', file.buffer, { filename : file.originalname });
+      value.forEach((file: any) => {
+        formData.append('files', file);
       });
     } else {
       const formattedValue = typeof value === 'object' ? JSON.stringify(value) : value || '';
