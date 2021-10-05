@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { ErrorRequest } from '@cig-platform/types';
 
-export const AppRequestErrorHandler = () => {
+export const AppRequestErrorHandler = (returnedValue?: unknown) => {
   return (_target: unknown, _propertyKey: string, descriptor: PropertyDescriptor): PropertyDescriptor => {
     const originalMethod = descriptor.value;
 
@@ -17,7 +17,7 @@ export const AppRequestErrorHandler = () => {
               throw response.error;
             }
       
-            return undefined;
+            return returnedValue;
           });
         }
 
@@ -29,7 +29,7 @@ export const AppRequestErrorHandler = () => {
           throw response.error;
         }
   
-        return undefined;
+        return returnedValue;
       }
     };
 

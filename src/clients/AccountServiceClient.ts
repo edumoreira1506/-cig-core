@@ -7,6 +7,10 @@ interface GetUserRequest extends AppRequest {
   user: IUser;
 }
 
+interface GetUsersRequest extends AppRequest {
+  users: IUser[];
+}
+
 interface PostUserSuccessRequest extends AppRequest {
   user: IUser;
   message: string;
@@ -34,22 +38,29 @@ export default class AccountServiceClient {
 
   @AppRequestErrorHandler()
   async postUser(user: Partial<IUser>) {
-    const response = await this._axiosClient.post<PostUserSuccessRequest>('/users', user);
+    const response = await this._axiosClient.post<PostUserSuccessRequest>('/v1/users', user);
 
     return response.data.user;
   }
 
   @AppRequestErrorHandler()
   async getUser(userId: string) {
-    const response = await this._axiosClient.get<GetUserRequest>(`/users/${userId}`);
+    const response = await this._axiosClient.get<GetUserRequest>(`/v1/users/${userId}`);
 
     return response.data.user;
   }
 
   @AppRequestErrorHandler()
   async authUser(email: string, password: string) {
-    const response = await this._axiosClient.post<AuthUserRequest>('/auth', { email, password });
+    const response = await this._axiosClient.post<AuthUserRequest>('/v1/auth', { email, password });
 
     return response.data.user;
+  }
+
+  @AppRequestErrorHandler([])
+  async getUsers({ email }: { email?: string } = {}) {
+    const response = await this._axiosClient.get<GetUsersRequest>('/v1/users', { params: { email } });
+
+    return response.data.users;
   }
 }

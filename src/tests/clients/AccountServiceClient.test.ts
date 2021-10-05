@@ -1,4 +1,5 @@
 import axios from 'axios';
+import faker from 'faker';
 import { userFactory } from '@cig-platform/factories';
 
 import AccountServiceClient from '@Clients/AccountServiceClient';
@@ -23,7 +24,7 @@ describe('AccountServiceClient', () => {
       const accountServiceClient = new AccountServiceClient('');
 
       expect(await accountServiceClient.postUser(mockResponse.user)).toBe(mockResponse.user);
-      expect(mockAxiosPost).toHaveBeenCalledWith('/users', mockResponse.user);
+      expect(mockAxiosPost).toHaveBeenCalledWith('/v1/users', mockResponse.user);
     });
   });
 
@@ -48,7 +49,7 @@ describe('AccountServiceClient', () => {
       const accountServiceClient = new AccountServiceClient('');
 
       expect(await accountServiceClient.getUser(mockUserId)).toBe(mockResponse.user);
-      expect(mockAxiosGet).toHaveBeenCalledWith(`/users/${mockUserId}`);
+      expect(mockAxiosGet).toHaveBeenCalledWith(`/v1/users/${mockUserId}`);
     });
   });
 
@@ -75,7 +76,31 @@ describe('AccountServiceClient', () => {
       const accountServiceClient = new AccountServiceClient('');
 
       expect(await accountServiceClient.authUser(authUserData.email, authUserData.password)).toBe(mockResponse.user);
-      expect(mockAxiosPost).toHaveBeenCalledWith('/auth', authUserData);
+      expect(mockAxiosPost).toHaveBeenCalledWith('/v1/auth', authUserData);
+    });
+  });
+
+  describe('.getUsers', () => {
+    it('returns the users', async () => {
+      const users = Array(10).fill(null).map(() => userFactory());
+      const email = faker.internet.email();
+      const mockResponse = {
+        ok: true,
+        users
+      };
+      const mockAxiosGet = jest.fn().mockResolvedValue({
+        data: mockResponse
+      });
+      const mockAxiosCreate = jest.fn().mockReturnValue({
+        get: mockAxiosGet
+      });
+
+      jest.spyOn(axios, 'create').mockImplementation(mockAxiosCreate);
+
+      const accountServiceClient = new AccountServiceClient('');
+
+      expect(await accountServiceClient.getUsers({ email })).toBe(mockResponse.users);
+      expect(mockAxiosGet).toHaveBeenCalledWith('/v1/users', { params: { email } });
     });
   });
 });
