@@ -24,7 +24,7 @@ describe('PoultryServiceClient', () => {
       const poultryServiceClient = new PoultryServiceClient('');
 
       expect(await poultryServiceClient.postBreeder(mockResponse.breeder)).toBe(mockResponse.breeder);
-      expect(mockAxiosPost).toHaveBeenCalledWith('/breeders', mockResponse.breeder);
+      expect(mockAxiosPost).toHaveBeenCalledWith('/v1/breeders', mockResponse.breeder);
     });
   });
 
@@ -50,7 +50,7 @@ describe('PoultryServiceClient', () => {
       const poultryServiceClient = new PoultryServiceClient('');
 
       expect(await poultryServiceClient.postBreederUser(mockResponse.breederUser)).toBe(mockResponse.breederUser);
-      expect(mockAxiosPost).toHaveBeenCalledWith(`/breeders/${mockResponse.breederUser.breederId}/users`, { userId: mockResponse.breederUser.userId });
+      expect(mockAxiosPost).toHaveBeenCalledWith(`/v1/breeders/${mockResponse.breederUser.breederId}/users`, { userId: mockResponse.breederUser.userId });
     });
   });
 
@@ -72,7 +72,7 @@ describe('PoultryServiceClient', () => {
       const poultryServiceClient = new PoultryServiceClient('');
 
       expect(await poultryServiceClient.getBreeders()).toBe(mockResponse.breeders);
-      expect(mockAxiosGet).toHaveBeenCalledWith('/breeders', { params: {} });
+      expect(mockAxiosGet).toHaveBeenCalledWith('/v1/breeders', { params: {} });
     });
 
     it('sends userId as query param', async () => {
@@ -93,7 +93,7 @@ describe('PoultryServiceClient', () => {
       const poultryServiceClient = new PoultryServiceClient('');
 
       expect(await poultryServiceClient.getBreeders(userId)).toBe(mockResponse.breeders);
-      expect(mockAxiosGet).toHaveBeenCalledWith('/breeders', { params: { userId } });
+      expect(mockAxiosGet).toHaveBeenCalledWith('/v1/breeders', { params: { userId } });
     });
   });
 
@@ -117,7 +117,7 @@ describe('PoultryServiceClient', () => {
       const poultryServiceClient = new PoultryServiceClient('');
 
       expect(await poultryServiceClient.getBreeder(mockResponse.breeder.id)).toBe(mockResponse.breeder);
-      expect(mockAxiosGet).toHaveBeenCalledWith(`/breeders/${mockResponse.breeder.id}`);
+      expect(mockAxiosGet).toHaveBeenCalledWith(`/v1/breeders/${mockResponse.breeder.id}`);
     });
   });
 

@@ -23,7 +23,7 @@ describe('AccountServiceClient', () => {
       const accountServiceClient = new AccountServiceClient('');
 
       expect(await accountServiceClient.postUser(mockResponse.user)).toBe(mockResponse.user);
-      expect(mockAxiosPost).toHaveBeenCalledWith('/users', mockResponse.user);
+      expect(mockAxiosPost).toHaveBeenCalledWith('/v1/users', mockResponse.user);
     });
   });
 
@@ -48,7 +48,7 @@ describe('AccountServiceClient', () => {
       const accountServiceClient = new AccountServiceClient('');
 
       expect(await accountServiceClient.getUser(mockUserId)).toBe(mockResponse.user);
-      expect(mockAxiosGet).toHaveBeenCalledWith(`/users/${mockUserId}`);
+      expect(mockAxiosGet).toHaveBeenCalledWith(`/v1/users/${mockUserId}`);
     });
   });
 
@@ -75,7 +75,7 @@ describe('AccountServiceClient', () => {
       const accountServiceClient = new AccountServiceClient('');
 
       expect(await accountServiceClient.authUser(authUserData.email, authUserData.password)).toBe(mockResponse.user);
-      expect(mockAxiosPost).toHaveBeenCalledWith('/auth', authUserData);
+      expect(mockAxiosPost).toHaveBeenCalledWith('/v1/auth', authUserData);
     });
   });
 });

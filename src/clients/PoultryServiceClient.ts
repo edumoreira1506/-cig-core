@@ -37,7 +37,7 @@ export default class PoultryServiceClient {
 
   @AppRequestErrorHandler()
   async postBreeder(breeder: Partial<IBreeder>) {
-    const response = await this._axiosClient.post<PostBreederSuccessRequest>('/breeders', breeder);
+    const response = await this._axiosClient.post<PostBreederSuccessRequest>('/v1/breeders', breeder);
 
     return response.data.breeder;
   }
@@ -45,7 +45,7 @@ export default class PoultryServiceClient {
   @AppRequestErrorHandler()
   async postBreederUser(breederUser: Partial<IBreederUser>) {
     const response = await this._axiosClient.post<PostBreederUserSuccessRequest>(
-      `/breeders/${breederUser?.breederId ?? ''}/users`,
+      `/v1/breeders/${breederUser?.breederId ?? ''}/users`,
       { userId: breederUser?.userId }
     );
 
@@ -56,7 +56,7 @@ export default class PoultryServiceClient {
   updateBreeder(breederId: string, breeder: Partial<IBreeder>) {
     const formData = toFormData(breeder);
 
-    return this._axiosClient.patch(`/breeders/${breederId}`, formData, {
+    return this._axiosClient.patch(`/v1/breeders/${breederId}`, formData, {
       headers: formData.getHeaders()
     });
   }
@@ -67,14 +67,14 @@ export default class PoultryServiceClient {
       ...(userId ? { userId } : {})
     };
 
-    const response = await this._axiosClient.get<GetBreedersSuccessRequest>('/breeders', { params });
+    const response = await this._axiosClient.get<GetBreedersSuccessRequest>('/v1/breeders', { params });
 
     return response.data.breeders;
   }
 
   @AppRequestErrorHandler()
   async getBreeder(breederId: IBreeder['id']) {
-    const response = await this._axiosClient.get<GetBreederSuccessRequest>(`/breeders/${breederId}`);
+    const response = await this._axiosClient.get<GetBreederSuccessRequest>(`/v1/breeders/${breederId}`);
 
     return response.data.breeder;
   }
