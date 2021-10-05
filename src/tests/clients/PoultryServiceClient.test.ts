@@ -1,10 +1,10 @@
 import axios from 'axios';
 import faker from 'faker';
 
-import BreederServiceClient from '@Clients/BreederServiceClient';
+import PoultryServiceClient from '@Clients/PoultryServiceClient';
 import { breederFactory } from '@cig-platform/factories';
 
-describe('BreederServiceClient', () => {
+describe('PoultryServiceClient', () => {
   describe('.postBreeder', () => {
     it('returns the breeder', async () => {
       const mockResponse = {
@@ -21,9 +21,9 @@ describe('BreederServiceClient', () => {
 
       jest.spyOn(axios, 'create').mockImplementation(mockAxiosCreate);
 
-      const breederServiceClient = new BreederServiceClient('');
+      const poultryServiceClient = new PoultryServiceClient('');
 
-      expect(await breederServiceClient.postBreeder(mockResponse.breeder)).toBe(mockResponse.breeder);
+      expect(await poultryServiceClient.postBreeder(mockResponse.breeder)).toBe(mockResponse.breeder);
       expect(mockAxiosPost).toHaveBeenCalledWith('/breeders', mockResponse.breeder);
     });
   });
@@ -47,9 +47,9 @@ describe('BreederServiceClient', () => {
 
       jest.spyOn(axios, 'create').mockImplementation(mockAxiosCreate);
 
-      const breederServiceClient = new BreederServiceClient('');
+      const poultryServiceClient = new PoultryServiceClient('');
 
-      expect(await breederServiceClient.postBreederUser(mockResponse.breederUser)).toBe(mockResponse.breederUser);
+      expect(await poultryServiceClient.postBreederUser(mockResponse.breederUser)).toBe(mockResponse.breederUser);
       expect(mockAxiosPost).toHaveBeenCalledWith(`/breeders/${mockResponse.breederUser.breederId}/users`, { userId: mockResponse.breederUser.userId });
     });
   });
@@ -69,9 +69,9 @@ describe('BreederServiceClient', () => {
 
       jest.spyOn(axios, 'create').mockImplementation(mockAxiosCreate);
 
-      const breederServiceClient = new BreederServiceClient('');
+      const poultryServiceClient = new PoultryServiceClient('');
 
-      expect(await breederServiceClient.getBreeders()).toBe(mockResponse.breeders);
+      expect(await poultryServiceClient.getBreeders()).toBe(mockResponse.breeders);
       expect(mockAxiosGet).toHaveBeenCalledWith('/breeders', { params: {} });
     });
 
@@ -90,9 +90,9 @@ describe('BreederServiceClient', () => {
 
       jest.spyOn(axios, 'create').mockImplementation(mockAxiosCreate);
 
-      const breederServiceClient = new BreederServiceClient('');
+      const poultryServiceClient = new PoultryServiceClient('');
 
-      expect(await breederServiceClient.getBreeders(userId)).toBe(mockResponse.breeders);
+      expect(await poultryServiceClient.getBreeders(userId)).toBe(mockResponse.breeders);
       expect(mockAxiosGet).toHaveBeenCalledWith('/breeders', { params: { userId } });
     });
   });
@@ -114,9 +114,9 @@ describe('BreederServiceClient', () => {
 
       jest.spyOn(axios, 'create').mockImplementation(mockAxiosCreate);
 
-      const breederServiceClient = new BreederServiceClient('');
+      const poultryServiceClient = new PoultryServiceClient('');
 
-      expect(await breederServiceClient.getBreeder(mockResponse.breeder.id)).toBe(mockResponse.breeder);
+      expect(await poultryServiceClient.getBreeder(mockResponse.breeder.id)).toBe(mockResponse.breeder);
       expect(mockAxiosGet).toHaveBeenCalledWith(`/breeders/${mockResponse.breeder.id}`);
     });
   });
@@ -131,9 +131,9 @@ describe('BreederServiceClient', () => {
 
       jest.spyOn(axios, 'create').mockImplementation(mockAxiosCreate);
 
-      const breederServiceClient = new BreederServiceClient('');
+      const poultryServiceClient = new PoultryServiceClient('');
 
-      await breederServiceClient.updateBreeder(breeder.id, breeder);
+      await poultryServiceClient.updateBreeder(breeder.id, breeder);
 
       expect(mockAxiosPatch).toHaveBeenCalled();
     });

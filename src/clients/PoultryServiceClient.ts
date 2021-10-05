@@ -26,7 +26,7 @@ interface GetBreederSuccessRequest extends AppRequest {
   breeder: IBreeder;
 }
 
-export default class BreederServiceClient {
+export default class PoultryServiceClient {
   _axiosClient: AxiosInstance;
 
   constructor(breederServiceUrl: string) {
