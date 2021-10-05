@@ -7,6 +7,10 @@ interface GetUserRequest extends AppRequest {
   user: IUser;
 }
 
+interface GetUsersRequest extends AppRequest {
+  users: IUser[];
+}
+
 interface PostUserSuccessRequest extends AppRequest {
   user: IUser;
   message: string;
@@ -51,5 +55,12 @@ export default class AccountServiceClient {
     const response = await this._axiosClient.post<AuthUserRequest>('/auth', { email, password });
 
     return response.data.user;
+  }
+
+  @AppRequestErrorHandler([])
+  async getUsers({ email }: { email?: string } = {}) {
+    const response = await this._axiosClient.get<GetUsersRequest>('/users', { params: { email } });
+
+    return response.data.users;
   }
 }
