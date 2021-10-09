@@ -102,8 +102,8 @@ export default class PoultryServiceClient {
   async postBreederImages(breederId: string, images: File[]) {
     const formData = new FormData();
 
-    images.forEach((image) => {
-      formData.append('files', image);
+    images.forEach((image: any) => {
+      formData.append('files', image.buffer, { filename: image.originalname });
     });
 
     return this._axiosClient.post(`/v1/breeders/${breederId}/images`, formData, {
