@@ -1,6 +1,7 @@
 import axios, { AxiosInstance } from 'axios';
 import { AppRequest, IBreeder, IBreederUser, IUser } from '@cig-platform/types';
 import { RequestErrorHandler } from '@cig-platform/decorators';
+import FormData from 'form-data';
 
 import { toFormData } from '@Utils/form';
 
@@ -96,5 +97,17 @@ export default class PoultryServiceClient {
 
   async removeBreederImage(breederId: string, breederImageId: string) {
     return this._axiosClient.delete(`/v1/breeders/${breederId}/images/${breederImageId}`); 
+  }
+
+  async postBreederImages(breederId: string, images: File[]) {
+    const formData = new FormData();
+
+    images.forEach((image) => {
+      formData.append('files', image);
+    });
+
+    return this._axiosClient.post(`/v1/breeders/${breederId}/images`, formData, {
+      headers: formData.getHeaders()
+    });
   }
 }
