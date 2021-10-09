@@ -1,7 +1,6 @@
 import { FindManyOptions, Repository } from 'typeorm';
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
-
-import { FindEntityErrorHandler } from '@Decorators/repository';
+import { ErrorHandler } from '@cig-platform/decorators';
 
 interface BaseEntity {
   id: string;
@@ -9,16 +8,17 @@ interface BaseEntity {
 }
 
 export default class BaseRepository<T extends BaseEntity> extends Repository<T> {
-  @FindEntityErrorHandler()
+  @ErrorHandler()
   findById(id: string) {
     return this.findOne({ id });
   }
 
-  @FindEntityErrorHandler()
+  @ErrorHandler()
   findByField(fieldName: keyof T, fieldValue: any) {
     return this.findOne({ [fieldName]: fieldValue, active: true });
   }
 
+  @ErrorHandler([])
   all(fields?: FindManyOptions<T>) {
     return this.find(fields);
   }
