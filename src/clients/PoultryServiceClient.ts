@@ -93,4 +93,8 @@ export default class PoultryServiceClient {
 
     return response.data.breederImages;
   }
+
+  async removeBreederImage(breederId: string, breederImageId: string) {
+    return this._axiosClient.delete(`/v1/breeders/${breederId}/images/${breederImageId}`); 
+  }
 }
