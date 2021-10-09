@@ -1,7 +1,6 @@
 import axios, { AxiosInstance } from 'axios';
 import { IUser, AppRequest } from '@cig-platform/types';
-
-import { AppRequestErrorHandler } from '@Decorators/client';
+import { RequestErrorHandler } from '@cig-platform/decorators';
 
 interface GetUserRequest extends AppRequest {
   user: IUser;
@@ -36,28 +35,28 @@ export default class AccountServiceClient {
     });
   }
 
-  @AppRequestErrorHandler()
+  @RequestErrorHandler()
   async postUser(user: Partial<IUser>) {
     const response = await this._axiosClient.post<PostUserSuccessRequest>('/v1/users', user);
 
     return response.data.user;
   }
 
-  @AppRequestErrorHandler()
+  @RequestErrorHandler()
   async getUser(userId: string) {
     const response = await this._axiosClient.get<GetUserRequest>(`/v1/users/${userId}`);
 
     return response.data.user;
   }
 
-  @AppRequestErrorHandler()
+  @RequestErrorHandler()
   async authUser(email: string, password: string) {
     const response = await this._axiosClient.post<AuthUserRequest>('/v1/auth', { email, password });
 
     return response.data.user;
   }
 
-  @AppRequestErrorHandler([])
+  @RequestErrorHandler([])
   async getUsers({ email }: { email?: string } = {}) {
     const response = await this._axiosClient.get<GetUsersRequest>('/v1/users', { params: { email } });
 

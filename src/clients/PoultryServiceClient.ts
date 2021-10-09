@@ -1,7 +1,7 @@
 import axios, { AxiosInstance } from 'axios';
 import { AppRequest, IBreeder, IBreederUser, IUser } from '@cig-platform/types';
+import { RequestErrorHandler } from '@cig-platform/decorators';
 
-import { AppRequestErrorHandler } from '@Decorators/client';
 import { toFormData } from '@Utils/form';
 
 interface PostBreederSuccessRequest extends AppRequest {
@@ -43,14 +43,14 @@ export default class PoultryServiceClient {
     });
   }
 
-  @AppRequestErrorHandler()
+  @RequestErrorHandler()
   async postBreeder(breeder: Partial<IBreeder>) {
     const response = await this._axiosClient.post<PostBreederSuccessRequest>('/v1/breeders', breeder);
 
     return response.data.breeder;
   }
 
-  @AppRequestErrorHandler()
+  @RequestErrorHandler()
   async postBreederUser(breederUser: Partial<IBreederUser>) {
     const response = await this._axiosClient.post<PostBreederUserSuccessRequest>(
       `/v1/breeders/${breederUser?.breederId ?? ''}/users`,
@@ -60,7 +60,7 @@ export default class PoultryServiceClient {
     return response.data.breederUser;
   }
 
-  @AppRequestErrorHandler()
+  @RequestErrorHandler()
   updateBreeder(breederId: string, breeder: Partial<IBreeder>) {
     const formData = toFormData(breeder);
 
@@ -69,7 +69,7 @@ export default class PoultryServiceClient {
     });
   }
 
-  @AppRequestErrorHandler()
+  @RequestErrorHandler()
   async getBreeders(userId?: IUser['id']) {
     const params = {
       ...(userId ? { userId } : {})
@@ -80,14 +80,14 @@ export default class PoultryServiceClient {
     return response.data.breeders;
   }
 
-  @AppRequestErrorHandler()
+  @RequestErrorHandler()
   async getBreeder(breederId: IBreeder['id']) {
     const response = await this._axiosClient.get<GetBreederSuccessRequest>(`/v1/breeders/${breederId}`);
 
     return response.data.breeder;
   }
 
-  @AppRequestErrorHandler([])
+  @RequestErrorHandler([])
   async getBreederImages(breederId: IBreeder['id']) {
     const response = await this._axiosClient.get<GetBreederImagesSuccessRequest>(`/v1/breeders/${breederId}/images`);
 
