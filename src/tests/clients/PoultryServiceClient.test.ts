@@ -138,4 +138,27 @@ describe('PoultryServiceClient', () => {
       expect(mockAxiosPatch).toHaveBeenCalled();
     });
   });
+
+  describe('.getBreederImages', () => {
+    it('returns all images', async () => {
+      const breeder = breederFactory();
+      const mockResponse = {
+        ok: true,
+        breederImages: []
+      };
+      const mockAxiosGet = jest.fn().mockResolvedValue({
+        data: mockResponse
+      });
+      const mockAxiosCreate = jest.fn().mockReturnValue({
+        get: mockAxiosGet
+      });
+
+      jest.spyOn(axios, 'create').mockImplementation(mockAxiosCreate);
+
+      const poultryServiceClient = new PoultryServiceClient('');
+
+      expect(await poultryServiceClient.getBreederImages(breeder.id)).toBe(mockResponse.breederImages);
+      expect(mockAxiosGet).toHaveBeenCalledWith(`/v1/breeders/${breeder.id}/images`);
+    });
+  });
 });
