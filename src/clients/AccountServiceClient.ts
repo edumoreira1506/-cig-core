@@ -43,6 +43,11 @@ export default class AccountServiceClient {
   }
 
   @RequestErrorHandler()
+  async editUser(user: Partial<IUser>, userId: string) {
+    return this._axiosClient.patch(`/v1/users/${userId}`, user);
+  }
+
+  @RequestErrorHandler()
   async getUser(userId: string) {
     const response = await this._axiosClient.get<GetUserRequest>(`/v1/users/${userId}`);
 
