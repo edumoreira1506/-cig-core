@@ -45,6 +45,10 @@ interface GetBreederImagesSuccessRequest extends AppRequest {
   }[]
 }
 
+interface GetPoultriesSuccessRequest extends AppRequest {
+  poultries: IPoultry[];
+}
+
 export default class PoultryServiceClient {
   _axiosClient: AxiosInstance;
 
@@ -121,6 +125,7 @@ export default class PoultryServiceClient {
     });
   }
 
+  @RequestErrorHandler()
   async postPoultry(breederId: string, poultry: IPoultry) {
     const response = await this._axiosClient.post<PostPoultrySuccessRequest>(
       `/v1/breeders/${breederId}/poultries`,
@@ -128,5 +133,12 @@ export default class PoultryServiceClient {
     );
 
     return response.data.poultry;
+  }
+
+  @RequestErrorHandler([])
+  async getPoultries(breederId: IBreeder['id']) {
+    const response = await this._axiosClient.get<GetPoultriesSuccessRequest>(`/v1/breeders/${breederId}/poultries`);
+
+    return response.data.poultries;
   }
 }
