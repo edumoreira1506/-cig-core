@@ -1,5 +1,11 @@
 import axios, { AxiosInstance } from 'axios';
-import { AppRequest, IBreeder, IBreederUser, IUser } from '@cig-platform/types';
+import {
+  AppRequest,
+  IBreeder,
+  IBreederUser,
+  IPoultry,
+  IUser,
+} from '@cig-platform/types';
 import { RequestErrorHandler } from '@cig-platform/decorators';
 import FormData from 'form-data';
 
@@ -17,6 +23,10 @@ interface PostBreederUserSuccessRequest extends AppRequest {
     breederId: string;
   }
   message: string;
+}
+
+interface PostPoultrySuccessRequest extends AppRequest {
+  poultry: IPoultry;
 }
 
 interface GetBreedersSuccessRequest extends AppRequest {
@@ -109,5 +119,14 @@ export default class PoultryServiceClient {
     return this._axiosClient.post(`/v1/breeders/${breederId}/images`, formData, {
       headers: formData.getHeaders()
     });
+  }
+
+  async postPoultry(breederId: string, poultry: IPoultry) {
+    const response = await this._axiosClient.post<PostPoultrySuccessRequest>(
+      `/v1/breeders/${breederId}/poultries`,
+      poultry
+    );
+
+    return response.data.poultry;
   }
 }
