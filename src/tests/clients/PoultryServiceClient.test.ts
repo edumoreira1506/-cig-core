@@ -2,7 +2,7 @@ import axios from 'axios';
 import faker from 'faker';
 
 import PoultryServiceClient from '@Clients/PoultryServiceClient';
-import { breederFactory } from '@cig-platform/factories';
+import { breederFactory, poultryFactory } from '@cig-platform/factories';
 
 describe('PoultryServiceClient', () => {
   describe('.postBreeder', () => {
@@ -159,6 +159,49 @@ describe('PoultryServiceClient', () => {
 
       expect(await poultryServiceClient.getBreederImages(breeder.id)).toBe(mockResponse.breederImages);
       expect(mockAxiosGet).toHaveBeenCalledWith(`/v1/breeders/${breeder.id}/images`);
+    });
+  });
+
+  describe('.getPoultry', () => {
+    it('returns poultry', async () => {
+      const poultry = poultryFactory();
+      const breeder = breederFactory();
+      const mockResponse = {
+        ok: true,
+        poultry
+      };
+      const mockAxiosGet = jest.fn().mockResolvedValue({
+        data: mockResponse
+      });
+      const mockAxiosCreate = jest.fn().mockReturnValue({
+        get: mockAxiosGet
+      });
+
+      jest.spyOn(axios, 'create').mockImplementation(mockAxiosCreate);
+
+      const poultryServiceClient = new PoultryServiceClient('');
+
+      expect(await poultryServiceClient.getPoultry(breeder.id, poultry.id)).toBe(mockResponse.poultry);
+      expect(mockAxiosGet).toHaveBeenCalledWith(`/v1/breeders/${breeder.id}/poultries/${poultry.id}`);
+    });
+  });
+
+  describe('.updatePoultry', () => {
+    it('calls .patch', async () => {
+      const poultry = poultryFactory();
+      const breeder = breederFactory();
+      const mockAxiosPatch = jest.fn();
+      const mockAxiosCreate = jest.fn().mockReturnValue({
+        patch: mockAxiosPatch
+      });
+
+      jest.spyOn(axios, 'create').mockImplementation(mockAxiosCreate);
+
+      const poultryServiceClient = new PoultryServiceClient('');
+
+      await poultryServiceClient.updatePoultry(breeder.id, poultry.id, poultry);
+
+      expect(mockAxiosPatch).toHaveBeenCalledWith(`/v1/breeders/${breeder.id}/poultries/${poultry.id}`, poultry);
     });
   });
 });
