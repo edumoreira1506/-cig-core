@@ -49,6 +49,10 @@ interface GetPoultriesSuccessRequest extends AppRequest {
   poultries: IPoultry[];
 }
 
+interface GetPoultrySuccessRequest extends AppRequest {
+  poultry: IPoultry;
+}
+
 export default class PoultryServiceClient {
   _axiosClient: AxiosInstance;
 
@@ -138,6 +142,13 @@ export default class PoultryServiceClient {
   @RequestErrorHandler()
   async updatePoultry(breederId: string, poultryId: string, poultry: Partial<IPoultry>) {
     return this._axiosClient.patch(`/v1/breeders/${breederId}/poultries/${poultryId}`, poultry);
+  }
+
+  @RequestErrorHandler()
+  async getPoultry(breederId: string, poultryId: string) {
+    const response = await this._axiosClient.get<GetPoultrySuccessRequest>(`/v1/breeders/${breederId}/poultries/${poultryId}`);
+
+    return response.data.poultry;
   }
 
   @RequestErrorHandler([])
