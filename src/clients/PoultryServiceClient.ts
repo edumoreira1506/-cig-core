@@ -135,6 +135,11 @@ export default class PoultryServiceClient {
     return response.data.poultry;
   }
 
+  @RequestErrorHandler()
+  async updatePoultry(breederId: string, poultryId: string, poultry: Partial<IPoultry>) {
+    return this._axiosClient.patch(`/v1/breeders/${breederId}/poultries/${poultryId}`, poultry);
+  }
+
   @RequestErrorHandler([])
   async getPoultries(breederId: IBreeder['id']) {
     const response = await this._axiosClient.get<GetPoultriesSuccessRequest>(`/v1/breeders/${breederId}/poultries`);
