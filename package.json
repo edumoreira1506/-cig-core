@@ -24,7 +24,7 @@
   "homepage": "https://github.com/edumoreira1506/-cig-core#readme",
   "dependencies": {
     "@cig-platform/decorators": "0.0.1",
-    "@cig-platform/factories": "0.0.6",
+    "@cig-platform/factories": "0.0.8",
     "@cig-platform/types": "0.0.11",
     "axios": "^0.21.4",
     "express": "^4.17.1",
