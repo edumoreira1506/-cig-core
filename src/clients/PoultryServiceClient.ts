@@ -55,6 +55,14 @@ interface GetBreederImagesSuccessRequest extends AppRequest {
   }[]
 }
 
+interface GetPoultryImagesSuccessRequest extends AppRequest {
+  poultryImages: {
+    id: string;
+    poultryId: string;
+    imageUrl: string;
+  }[]
+}
+
 interface GetPoultriesSuccessRequest extends AppRequest {
   poultries: IPoultry[];
 }
@@ -123,8 +131,19 @@ export default class PoultryServiceClient {
     return response.data.breederImages;
   }
 
+  @RequestErrorHandler([])
+  async getPoultryImages(breederId: IBreeder['id'], poultryId: IPoultry['id']) {
+    const response = await this._axiosClient.get<GetPoultryImagesSuccessRequest>(`/v1/breeders/${breederId}/poultries/${poultryId}/images`);
+
+    return response.data.poultryImages;
+  }
+
   async removeBreederImage(breederId: string, breederImageId: string) {
-    return this._axiosClient.delete(`/v1/breeders/${breederId}/images/${breederImageId}`); 
+    return this._axiosClient.delete(`/v1/breeders/${breederId}/images/${breederImageId}`);
+  }
+
+  async removePoultryImage(breederId: string, poultryId: string, imageId: string) {
+    return this._axiosClient.delete(`/v1/breeders/${breederId}/poultries/${poultryId}/images/${imageId}`); 
   }
 
   @RequestErrorHandler()
@@ -162,6 +181,18 @@ export default class PoultryServiceClient {
     });
 
     return this._axiosClient.post(`/v1/breeders/${breederId}/images`, formData, {
+      headers: formData.getHeaders()
+    });
+  }
+
+  async postPoultryImages(breederId: string, poultryId: string, images: File[]) {
+    const formData = new FormData();
+
+    images.forEach((image: any) => {
+      formData.append('files', image.buffer, { filename: image.originalname });
+    });
+
+    return this._axiosClient.post(`/v1/breeders/${breederId}/poultries/${poultryId}/images`, formData, {
       headers: formData.getHeaders()
     });
   }
