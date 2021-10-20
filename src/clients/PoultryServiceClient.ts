@@ -32,6 +32,10 @@ interface PostBreederContactSuccessRequest extends AppRequest {
   message: string;
 }
 
+interface GetBreedersContactsSuccessRequest extends AppRequest {
+  contacts: IBreederContact;
+}
+
 interface PostPoultrySuccessRequest extends AppRequest {
   poultry: IPoultry;
 }
@@ -132,6 +136,23 @@ export default class PoultryServiceClient {
     );
 
     return response.data.contact;
+  }
+
+  @RequestErrorHandler([])
+  async getBreederContacts(breederId: string) {
+    const response = await this._axiosClient.get<GetBreedersContactsSuccessRequest>(`/v1/breeders/${breederId}/contacts`,);
+
+    return response.data.contacts;
+  }
+
+  @RequestErrorHandler()
+  async removeBreederContact(breederId: string, contactId: string) {
+    return this._axiosClient.delete(`/v1/breeders/${breederId}/contacts/${contactId}`); 
+  }
+
+  @RequestErrorHandler()
+  async updateBreederContact(breederId: string, contactId: string, contact: Partial<IBreederContact>) {
+    return this._axiosClient.patch(`/v1/breeders/${breederId}/poultries/${contactId}`, contact);
   }
 
   async postBreederImages(breederId: string, images: File[]) {
