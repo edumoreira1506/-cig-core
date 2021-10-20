@@ -5,6 +5,8 @@ import {
   IBreederUser,
   IPoultry,
   IUser,
+  IBreederImage,
+  IBreederContact
 } from '@cig-platform/types';
 import { RequestErrorHandler } from '@cig-platform/decorators';
 import FormData from 'form-data';
@@ -22,6 +24,11 @@ interface PostBreederUserSuccessRequest extends AppRequest {
     userId: string;
     breederId: string;
   }
+  message: string;
+}
+
+interface PostBreederContactSuccessRequest extends AppRequest {
+  contact: IBreederContact;
   message: string;
 }
 
@@ -115,6 +122,16 @@ export default class PoultryServiceClient {
 
   async removeBreederImage(breederId: string, breederImageId: string) {
     return this._axiosClient.delete(`/v1/breeders/${breederId}/images/${breederImageId}`); 
+  }
+
+  @RequestErrorHandler()
+  async postBreederContact(breederId: string, contact: Partial<IBreederImage>) {
+    const response = await this._axiosClient.post<PostBreederContactSuccessRequest>(
+      `/v1/breeders/${breederId}/contacts`,
+      contact
+    );
+
+    return response.data.contact;
   }
 
   async postBreederImages(breederId: string, images: File[]) {
