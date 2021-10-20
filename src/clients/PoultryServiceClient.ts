@@ -166,6 +166,18 @@ export default class PoultryServiceClient {
     });
   }
 
+  async postPoultryImages(breederId: string, poultryId: string, images: File[]) {
+    const formData = new FormData();
+
+    images.forEach((image: any) => {
+      formData.append('files', image.buffer, { filename: image.originalname });
+    });
+
+    return this._axiosClient.post(`/v1/breeders/${breederId}/poultries/${poultryId}/images`, formData, {
+      headers: formData.getHeaders()
+    });
+  }
+
   @RequestErrorHandler()
   async postPoultry(breederId: string, poultry: IPoultry) {
     const response = await this._axiosClient.post<PostPoultrySuccessRequest>(
