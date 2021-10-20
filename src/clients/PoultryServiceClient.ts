@@ -5,7 +5,6 @@ import {
   IBreederUser,
   IPoultry,
   IUser,
-  IBreederImage,
   IBreederContact
 } from '@cig-platform/types';
 import { RequestErrorHandler } from '@cig-platform/decorators';
@@ -129,7 +128,7 @@ export default class PoultryServiceClient {
   }
 
   @RequestErrorHandler()
-  async postBreederContact(breederId: string, contact: Partial<IBreederImage>) {
+  async postBreederContact(breederId: string, contact: Partial<IBreederContact>) {
     const response = await this._axiosClient.post<PostBreederContactSuccessRequest>(
       `/v1/breeders/${breederId}/contacts`,
       contact
