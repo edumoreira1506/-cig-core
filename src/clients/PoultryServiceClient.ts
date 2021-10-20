@@ -139,7 +139,11 @@ export default class PoultryServiceClient {
   }
 
   async removeBreederImage(breederId: string, breederImageId: string) {
-    return this._axiosClient.delete(`/v1/breeders/${breederId}/images/${breederImageId}`); 
+    return this._axiosClient.delete(`/v1/breeders/${breederId}/images/${breederImageId}`);
+  }
+
+  async removePoultryImage(breederId: string, poultryId: string, imageId: string) {
+    return this._axiosClient.delete(`/v1/breeders/${breederId}/poultries/${poultryId}/images/${imageId}`); 
   }
 
   @RequestErrorHandler()
