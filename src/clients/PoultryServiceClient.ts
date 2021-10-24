@@ -64,7 +64,7 @@ interface GetPoultryImagesSuccessRequest extends AppRequest {
 }
 
 interface GetPoultriesSuccessRequest extends AppRequest {
-  poultries: IPoultry[];
+  poultries: IPoultry & { mainImage: string; }[];
 }
 
 interface GetPoultrySuccessRequest extends AppRequest {
@@ -220,8 +220,11 @@ export default class PoultryServiceClient {
   }
 
   @RequestErrorHandler([])
-  async getPoultries(breederId: IBreeder['id']) {
-    const response = await this._axiosClient.get<GetPoultriesSuccessRequest>(`/v1/breeders/${breederId}/poultries`);
+  async getPoultries(breederId: IBreeder['id'], gender = '') {
+    const response = await this._axiosClient.get<GetPoultriesSuccessRequest>(
+      `/v1/breeders/${breederId}/poultries`,
+      { params: { gender } }
+    );
 
     return response.data.poultries;
   }
