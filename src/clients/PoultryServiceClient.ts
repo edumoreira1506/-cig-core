@@ -44,6 +44,10 @@ interface GetBreedersSuccessRequest extends AppRequest {
   breeders: IBreeder[]
 }
 
+interface GetRegistersSuccessRequest extends AppRequest {
+  registers: IPoultryRegister[];
+}
+
 interface GetBreederSuccessRequest extends AppRequest {
   breeder: IBreeder;
 }
@@ -114,6 +118,13 @@ export default class PoultryServiceClient {
     return this._axiosClient.post(`/v1/breeders/${breederId}/poultries/${poultryId}/registers`, formData, {
       headers: formData.getHeaders()
     });
+  }
+
+  @RequestErrorHandler([])
+  async getRegisters(breederId: string, poultryId: string) {
+    const response = await this._axiosClient.get<GetRegistersSuccessRequest>(`/v1/breeders/${breederId}/poultries/${poultryId}/registers`);
+
+    return response.data.registers;
   }
 
   @RequestErrorHandler()
