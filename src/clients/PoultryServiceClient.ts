@@ -5,7 +5,8 @@ import {
   IBreederUser,
   IPoultry,
   IUser,
-  IBreederContact
+  IBreederContact,
+  IPoultryRegister
 } from '@cig-platform/types';
 import { RequestErrorHandler } from '@cig-platform/decorators';
 import FormData from 'form-data';
@@ -102,6 +103,15 @@ export default class PoultryServiceClient {
     const formData = toFormData(breeder);
 
     return this._axiosClient.patch(`/v1/breeders/${breederId}`, formData, {
+      headers: formData.getHeaders()
+    });
+  }
+
+  @RequestErrorHandler()
+  postRegister(breederId: string, poultryId: string, register: Partial<IPoultryRegister>, files: File[]) {
+    const formData = toFormData({ ...register, files });
+
+    return this._axiosClient.post(`/v1/breeders/${breederId}/poultries/${poultryId}/registers`, formData, {
       headers: formData.getHeaders()
     });
   }
