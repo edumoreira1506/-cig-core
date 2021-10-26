@@ -5,7 +5,8 @@ import {
   IBreederUser,
   IPoultry,
   IUser,
-  IBreederContact
+  IBreederContact,
+  IPoultryRegister
 } from '@cig-platform/types';
 import { RequestErrorHandler } from '@cig-platform/decorators';
 import FormData from 'form-data';
@@ -41,6 +42,10 @@ interface PostPoultrySuccessRequest extends AppRequest {
 
 interface GetBreedersSuccessRequest extends AppRequest {
   breeders: IBreeder[]
+}
+
+interface GetRegistersSuccessRequest extends AppRequest {
+  registers: IPoultryRegister[];
 }
 
 interface GetBreederSuccessRequest extends AppRequest {
@@ -104,6 +109,22 @@ export default class PoultryServiceClient {
     return this._axiosClient.patch(`/v1/breeders/${breederId}`, formData, {
       headers: formData.getHeaders()
     });
+  }
+
+  @RequestErrorHandler()
+  postRegister(breederId: string, poultryId: string, register: Partial<IPoultryRegister>, files: File[]) {
+    const formData = toFormData({ ...register, files });
+
+    return this._axiosClient.post(`/v1/breeders/${breederId}/poultries/${poultryId}/registers`, formData, {
+      headers: formData.getHeaders()
+    });
+  }
+
+  @RequestErrorHandler([])
+  async getRegisters(breederId: string, poultryId: string) {
+    const response = await this._axiosClient.get<GetRegistersSuccessRequest>(`/v1/breeders/${breederId}/poultries/${poultryId}/registers`);
+
+    return response.data.registers;
   }
 
   @RequestErrorHandler()
