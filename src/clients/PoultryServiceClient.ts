@@ -241,10 +241,10 @@ export default class PoultryServiceClient {
   }
 
   @RequestErrorHandler([])
-  async getPoultries(breederId: IBreeder['id'], gender = '') {
+  async getPoultries(breederId: IBreeder['id'], { gender = '', genderCategory = '' }) {
     const response = await this._axiosClient.get<GetPoultriesSuccessRequest>(
       `/v1/breeders/${breederId}/poultries`,
-      { params: { gender } }
+      { params: { gender, genderCategory } }
     );
 
     return response.data.poultries;
