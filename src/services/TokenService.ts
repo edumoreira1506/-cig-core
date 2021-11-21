@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import { IBreeder, IUser } from '@cig-platform/types';
+import { IBreeder, IMerchant, IUser } from '@cig-platform/types';
 
 export default class TokenService {
   private encryptSecret: string;
@@ -11,8 +11,8 @@ export default class TokenService {
     this.open = this.open.bind(this);
   }
 
-  async create({ email, id, name }: Required<IUser>, breeders: Required<IBreeder>[]): Promise<string> {
-    return jwt.sign({ email, id, name, breeders }, this.encryptSecret, { expiresIn: '1d' });
+  async create({ email, id, name }: IUser, breeders: IBreeder[], merchant: IMerchant): Promise<string> {
+    return jwt.sign({ email, id, name, breeders, merchant }, this.encryptSecret, { expiresIn: '1d' });
   }
 
   open(token: string): Promise<Record<string, unknown>> {
