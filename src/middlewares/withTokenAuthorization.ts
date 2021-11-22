@@ -20,6 +20,7 @@ export const withTokenAuthorizationFactory = (tokenService: TokenService, errorC
     if (userData?.id !== tokenData?.id) throw new AuthError();
 
     req.user = userData;
+    req.merchant = tokenData.merchant;
 
     next();
   } catch (error: any) {
