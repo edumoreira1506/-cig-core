@@ -17,6 +17,10 @@ interface GetMerchantsSuccessRequest extends AppRequest {
   merchants: IMerchant[];
 }
 
+interface GetAdvertisingsSuccessRequest extends AppRequest {
+  advertisings: IAdvertising[];
+}
+
 export default class AdvertisingServiceClient {
   _axiosClient: AxiosInstance;
 
@@ -56,5 +60,14 @@ export default class AdvertisingServiceClient {
     });
 
     return response.data.merchants;
+  }
+
+  @RequestErrorHandler([])
+  async getAdvertisings(merchandId: string, externalId = '') {
+    const response = await this._axiosClient.get<GetAdvertisingsSuccessRequest>(`/v1/merchants/${merchandId}/advertisings`, {
+      params: { externalId }
+    });
+
+    return response.data.advertisings;
   }
 }
