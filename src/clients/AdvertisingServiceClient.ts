@@ -45,7 +45,7 @@ export default class AdvertisingServiceClient {
 
   @RequestErrorHandler()
   async rollbackMerchant(merchantId: string) {
-    await this._axiosClient.delete(`/v1/merchants/${merchantId}/rollback`);
+    await this._axiosClient.post(`/v1/merchants/${merchantId}/rollback`);
   }
 
   @RequestErrorHandler()

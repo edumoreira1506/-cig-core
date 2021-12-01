@@ -104,7 +104,7 @@ export default class PoultryServiceClient {
 
   @RequestErrorHandler()
   async rollbackBreederUser(breederId: string, breederUserId: string) {
-    await this._axiosClient.delete(`/v1/breeders/${breederId}/users/${breederUserId}/rollback`);
+    await this._axiosClient.post(`/v1/breeders/${breederId}/users/${breederUserId}/rollback`);
   }
 
   @RequestErrorHandler()
@@ -247,7 +247,7 @@ export default class PoultryServiceClient {
 
   @RequestErrorHandler()
   async rollbackBreeder(breederId: string) {
-    await this._axiosClient.delete(`/v1/breeders/${breederId}/rollback`);
+    await this._axiosClient.post(`/v1/breeders/${breederId}/rollback`);
   }
 
   @RequestErrorHandler([])

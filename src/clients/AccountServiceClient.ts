@@ -56,7 +56,7 @@ export default class AccountServiceClient {
 
   @RequestErrorHandler()
   async rollbackUser(userId: string) {
-    await this._axiosClient.delete(`/v1/users/${userId}/rollback`);
+    await this._axiosClient.post(`/v1/users/${userId}/rollback`);
   }
 
   @RequestErrorHandler()
