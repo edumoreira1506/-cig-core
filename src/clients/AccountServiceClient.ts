@@ -55,6 +55,11 @@ export default class AccountServiceClient {
   }
 
   @RequestErrorHandler()
+  async rollbackUser(userId: string) {
+    await this._axiosClient.delete(`/v1/users/${userId}/rollback`);
+  }
+
+  @RequestErrorHandler()
   async authUser(email: string, password: string) {
     const response = await this._axiosClient.post<AuthUserRequest>('/v1/auth', { email, password });
 

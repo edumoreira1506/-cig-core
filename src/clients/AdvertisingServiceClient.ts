@@ -44,6 +44,11 @@ export default class AdvertisingServiceClient {
   }
 
   @RequestErrorHandler()
+  async rollbackMerchant(merchantId: string) {
+    await this._axiosClient.delete(`/v1/merchants/${merchantId}/rollback`);
+  }
+
+  @RequestErrorHandler()
   async postAdvertising(merchantId: string, advertising: Partial<IAdvertising>) {
     const response = await this._axiosClient.post<PostAdvertisingSuccessRequest>(
       `/v1/merchants/${merchantId}/advertisings`,
