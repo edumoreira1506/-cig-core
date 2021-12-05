@@ -10,7 +10,7 @@ interface BaseEntity {
 export default class BaseRepository<T extends BaseEntity> extends Repository<T> {
   @ErrorHandler()
   findById(id: string) {
-    return this.findOne({ id });
+    return this.findOne({ id, active: true });
   }
 
   @ErrorHandler()
@@ -20,7 +20,16 @@ export default class BaseRepository<T extends BaseEntity> extends Repository<T> 
 
   @ErrorHandler([])
   all(fields?: FindManyOptions<T>) {
-    return this.find(fields);
+    const originalWhere = fields?.where ?? {};
+    const where = {
+      ...(typeof originalWhere === 'string' ? {} : originalWhere),
+      active: true,
+    };
+
+    return this.find({
+      ...fields,
+      where
+    });
   }
 
   updateById(id: string, fields: QueryDeepPartialEntity<T>) {
