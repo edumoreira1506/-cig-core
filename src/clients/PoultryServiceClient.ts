@@ -140,9 +140,10 @@ export default class PoultryServiceClient {
   }
 
   @RequestErrorHandler()
-  async getBreeders(userId?: IUser['id']) {
+  async getBreeders(userId?: IUser['id'], keyword = '') {
     const params = {
-      ...(userId ? { userId } : {})
+      ...(userId ? { userId } : {}),
+      ...(keyword ? { keyword } : {}),
     };
 
     const response = await this._axiosClient.get<GetBreedersSuccessRequest>('/v1/breeders', { params });
