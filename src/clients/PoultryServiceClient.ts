@@ -133,8 +133,11 @@ export default class PoultryServiceClient {
   }
 
   @RequestErrorHandler([])
-  async getRegisters(breederId: string, poultryId: string) {
-    const response = await this._axiosClient.get<GetRegistersSuccessRequest>(`/v1/breeders/${breederId}/poultries/${poultryId}/registers`);
+  async getRegisters(breederId: string, poultryId: string, registerType = '') {
+    const response = await this._axiosClient.get<GetRegistersSuccessRequest>(
+      `/v1/breeders/${breederId}/poultries/${poultryId}/registers`,
+      { params: { registerType } }
+    );
 
     return response.data.registers;
   }
