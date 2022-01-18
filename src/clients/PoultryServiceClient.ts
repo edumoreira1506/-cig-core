@@ -48,6 +48,10 @@ interface GetRegistersSuccessRequest extends AppRequest {
   registers: IPoultryRegister[];
 }
 
+interface GetContactsSuccessRequest extends AppRequest {
+  contacts: IBreederContact[];
+}
+
 interface GetBreederSuccessRequest extends AppRequest {
   breeder: IBreeder;
 }
@@ -203,6 +207,15 @@ export default class PoultryServiceClient {
   @RequestErrorHandler()
   async removeBreederContact(breederId: string, contactId: string) {
     return this._axiosClient.delete(`/v1/breeders/${breederId}/contacts/${contactId}`); 
+  }
+
+  @RequestErrorHandler([])
+  async getContacts(breederId: string) {
+    const response = await this._axiosClient.get<GetContactsSuccessRequest>(
+      `/v1/breeders/${breederId}/contacts`,
+    );
+
+    return response.data.contacts;
   }
 
   @RequestErrorHandler()
