@@ -63,6 +63,11 @@ export default class AdvertisingServiceClient {
     return response.data.advertising;
   }
 
+  @RequestErrorHandler()
+  async updateAdvertising(merchantId: string, advertisingId: string, price: number) {
+    return this._axiosClient.patch( `/v1/merchants/${merchantId}/advertisings/${advertisingId}`, { price });
+  }
+
   @RequestErrorHandler([])
   async getMerchants(externalId = '') {
     const response = await this._axiosClient.get<GetMerchantsSuccessRequest>('/v1/merchants', {
