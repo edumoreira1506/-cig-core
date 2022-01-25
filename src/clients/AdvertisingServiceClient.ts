@@ -1,6 +1,11 @@
 import axios, { AxiosInstance } from 'axios';
-
-import { IMerchant, AppRequest, IAdvertising } from '@cig-platform/types';
+import {
+  IMerchant,
+  AppRequest,
+  IAdvertising,
+  IAdvertisingQuestion,
+  IAdvertisingQuestionAnswer,
+} from '@cig-platform/types';
 import { RequestErrorHandler } from '@cig-platform/decorators';
 
 interface PostMerchantSuccessRequest extends AppRequest {
@@ -11,6 +16,25 @@ interface PostMerchantSuccessRequest extends AppRequest {
 interface PostAdvertisingSuccessRequest extends AppRequest {
   advertising: IAdvertising;
   message: string;
+}
+
+interface PostAdvertisingQuestionSuccessRequest extends AppRequest {
+  message: string;
+  advertisingQuestion: IAdvertisingQuestion;
+}
+
+interface PostAdvertisingQuestionAnswerSuccessRequest extends AppRequest {
+  message: string;
+  advertisingQuestionAnswer: IAdvertisingQuestionAnswer;
+}
+
+type IAdvertisingQuestionWithAnswer = IAdvertisingQuestion & {
+  answers: IAdvertisingQuestionAnswer[]
+}
+
+interface GetAdvertisingQuestionsSuccessRequest extends AppRequest {
+  message: string;
+  questions: IAdvertisingQuestionWithAnswer[];
 }
 
 interface GetMerchantsSuccessRequest extends AppRequest {
@@ -61,6 +85,40 @@ export default class AdvertisingServiceClient {
     );
 
     return response.data.advertising;
+  }
+
+  @RequestErrorHandler()
+  async postAdvertisingQuestion(merchantId: string, advertisingId: string, question: Partial<IAdvertisingQuestion>) {
+    const response = await this._axiosClient.post<PostAdvertisingQuestionSuccessRequest>(
+      `/v1/merchants/${merchantId}/advertisings/${advertisingId}/questions`,
+      question
+    );
+
+    return response.data.advertisingQuestion;
+  }
+
+  @RequestErrorHandler([])
+  async getAdvertisingQuestions(merchantId: string, advertisingId: string) {
+    const response = await this._axiosClient.get<GetAdvertisingQuestionsSuccessRequest>(
+      `/v1/merchants/${merchantId}/advertisings/${advertisingId}/questions`
+    );
+
+    return response.data.questions;
+  }
+
+  @RequestErrorHandler()
+  async postAdvertisingQuestionAnswer(
+    merchantId: string,
+    advertisingId: string,
+    questionId: string,
+    answer: Partial<IAdvertisingQuestionAnswer>
+  ) {
+    const response = await this._axiosClient.post<PostAdvertisingQuestionAnswerSuccessRequest>(
+      `/v1/merchants/${merchantId}/advertisings/${advertisingId}/questions/${questionId}/answers`,
+      answer
+    );
+
+    return response.data.advertisingQuestionAnswer;
   }
 
   @RequestErrorHandler()
