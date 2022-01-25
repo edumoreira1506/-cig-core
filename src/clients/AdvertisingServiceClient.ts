@@ -28,6 +28,15 @@ interface PostAdvertisingQuestionAnswerSuccessRequest extends AppRequest {
   advertisingQuestionAnswer: IAdvertisingQuestionAnswer;
 }
 
+type IAdvertisingQuestionWithAnswer = IAdvertisingQuestion & {
+  answers: IAdvertisingQuestionAnswer[]
+}
+
+interface GetAdvertisingQuestionsSuccessRequest extends AppRequest {
+  message: string;
+  questions: IAdvertisingQuestionWithAnswer[];
+}
+
 interface GetMerchantsSuccessRequest extends AppRequest {
   merchants: IMerchant[];
 }
@@ -86,6 +95,15 @@ export default class AdvertisingServiceClient {
     );
 
     return response.data.advertisingQuestion;
+  }
+
+  @RequestErrorHandler([])
+  async getAdvertisingQuestions(merchantId: string, advertisingId: string) {
+    const response = await this._axiosClient.get<GetAdvertisingQuestionsSuccessRequest>(
+      `/v1/merchants/${merchantId}/advertisings/${advertisingId}/questions`
+    );
+
+    return response.data.questions;
   }
 
   @RequestErrorHandler()
