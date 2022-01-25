@@ -1,6 +1,10 @@
 import axios, { AxiosInstance } from 'axios';
-
-import { IMerchant, AppRequest, IAdvertising } from '@cig-platform/types';
+import {
+  IMerchant,
+  AppRequest,
+  IAdvertising,
+  IAdvertisingQuestion,
+} from '@cig-platform/types';
 import { RequestErrorHandler } from '@cig-platform/decorators';
 
 interface PostMerchantSuccessRequest extends AppRequest {
@@ -11,6 +15,11 @@ interface PostMerchantSuccessRequest extends AppRequest {
 interface PostAdvertisingSuccessRequest extends AppRequest {
   advertising: IAdvertising;
   message: string;
+}
+
+interface PostAdvertisingQuestionSuccessRequest extends AppRequest {
+  message: string;
+  advertisingQuestion: IAdvertisingQuestion;
 }
 
 interface GetMerchantsSuccessRequest extends AppRequest {
@@ -61,6 +70,16 @@ export default class AdvertisingServiceClient {
     );
 
     return response.data.advertising;
+  }
+
+  @RequestErrorHandler()
+  async postAdvertisingQuestion(merchantId: string, advertisingId: string, question: Partial<IAdvertisingQuestion>) {
+    const response = await this._axiosClient.post<PostAdvertisingQuestionSuccessRequest>(
+      `/v1/merchants/${merchantId}/advertisings/${advertisingId}/questions`,
+      question
+    );
+
+    return response.data.advertisingQuestion;
   }
 
   @RequestErrorHandler()
