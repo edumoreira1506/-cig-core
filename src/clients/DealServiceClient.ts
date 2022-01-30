@@ -34,6 +34,11 @@ export default class PoultryServiceClient {
     return data.deal;
   }
 
+  @RequestErrorHandler()
+  async updateDeal(dealId: string, deal: Partial<IDeal>) {
+    await this._axiosClient.patch(`/v1/deals/${dealId}`, deal);
+  }
+
   @RequestErrorHandler([])
   async getDeals({ sellerId, buyerId }: { sellerId?: string, buyerId?: string } = {}) {
     const { data } = await this._axiosClient.get<GetDealsSuccessRequest>(`/v1/deals?sellerId=${sellerId}&buyerId=${buyerId}`);
