@@ -29,28 +29,28 @@ export default class PoultryServiceClient {
 
   @RequestErrorHandler()
   async registerDeal(deal: Partial<IDeal>) {
-    const { data } = await this._axiosClient.post<PostDealSuccessRequest>('/deals', deal);
+    const { data } = await this._axiosClient.post<PostDealSuccessRequest>('/v1/deals', deal);
 
     return data.deal;
   }
 
   @RequestErrorHandler([])
   async getDeals({ sellerId, buyerId }: { sellerId?: string, buyerId?: string } = {}) {
-    const { data } = await this._axiosClient.get<GetDealsSuccessRequest>(`/deals?sellerId=${sellerId}&buyerId=${buyerId}`);
+    const { data } = await this._axiosClient.get<GetDealsSuccessRequest>(`/v1/deals?sellerId=${sellerId}&buyerId=${buyerId}`);
 
     return data.deals;
   }
 
   @RequestErrorHandler()
   async registerDealEvent(dealId: string, dealEvent: Partial<IDealEvent>) {
-    const { data } = await this._axiosClient.post<PostDealEventSuccessRequest>(`/deals/${dealId}/events`, dealEvent);
+    const { data } = await this._axiosClient.post<PostDealEventSuccessRequest>(`/v1/deals/${dealId}/events`, dealEvent);
 
     return data.event;
   }
 
   @RequestErrorHandler([])
   async getDealEvents(dealId: string) {
-    const { data } = await this._axiosClient.get<GetDealEventsSuccessRequest>(`/deals/${dealId}/events`);
+    const { data } = await this._axiosClient.get<GetDealEventsSuccessRequest>(`/v1/deals/${dealId}/events`);
 
     return data.events;
   }
