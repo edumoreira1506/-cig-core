@@ -10,6 +10,10 @@ interface GetDealsSuccessRequest extends AppRequest {
   deals: IDeal[];
 }
 
+interface GetDealSuccessRequest extends AppRequest {
+  deal: IDeal;
+}
+
 interface PostDealEventSuccessRequest extends AppRequest {
   event: IDealEvent;
 }
@@ -44,6 +48,13 @@ export default class PoultryServiceClient {
     const { data } = await this._axiosClient.get<GetDealsSuccessRequest>(`/v1/deals?sellerId=${sellerId}&buyerId=${buyerId}`);
 
     return data.deals;
+  }
+
+  @RequestErrorHandler()
+  async getDeal(dealId: string) {
+    const { data } = await this._axiosClient.get<GetDealSuccessRequest>(`/v1/deals/${dealId}`);
+
+    return data.deal;
   }
 
   @RequestErrorHandler()
