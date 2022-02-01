@@ -130,8 +130,11 @@ export default class AdvertisingServiceClient {
   }
 
   @RequestErrorHandler()
-  async updateAdvertising(merchantId: string, advertisingId: string, price: number) {
-    return this._axiosClient.patch( `/v1/merchants/${merchantId}/advertisings/${advertisingId}`, { price });
+  async updateAdvertising(merchantId: string, advertisingId: string, price: number, finished?: boolean) {
+    return this._axiosClient.patch( `/v1/merchants/${merchantId}/advertisings/${advertisingId}`, {
+      price,
+      ...(typeof finished === 'boolean' ? { finished } : {})
+    });
   }
 
   @RequestErrorHandler([])
@@ -160,10 +163,12 @@ export default class AdvertisingServiceClient {
   }
 
   @RequestErrorHandler([])
-  async getAdvertisings(merchandId: string, externalId = '') {
-    const response = await this._axiosClient.get<GetAdvertisingsSuccessRequest>(`/v1/merchants/${merchandId}/advertisings`, {
-      params: { externalId }
-    });
+  async getAdvertisings(merchandId: string, externalId = '', finished?: boolean) {
+    const response = await this._axiosClient.get<GetAdvertisingsSuccessRequest>(
+      `/v1/merchants/${merchandId}/advertisings`, {
+        params: { externalId, ...(typeof finished === 'boolean' ? { finished } : {}) }
+      }
+    );
 
     return response.data.advertisings;
   }
