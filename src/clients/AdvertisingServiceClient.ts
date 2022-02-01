@@ -130,8 +130,11 @@ export default class AdvertisingServiceClient {
   }
 
   @RequestErrorHandler()
-  async updateAdvertising(merchantId: string, advertisingId: string, price: number) {
-    return this._axiosClient.patch( `/v1/merchants/${merchantId}/advertisings/${advertisingId}`, { price });
+  async updateAdvertising(merchantId: string, advertisingId: string, price: number, finished?: boolean) {
+    return this._axiosClient.patch( `/v1/merchants/${merchantId}/advertisings/${advertisingId}`, {
+      price,
+      ...(typeof finished === 'boolean' ? { finished } : {})
+    });
   }
 
   @RequestErrorHandler([])
