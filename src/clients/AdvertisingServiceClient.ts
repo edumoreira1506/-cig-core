@@ -160,10 +160,12 @@ export default class AdvertisingServiceClient {
   }
 
   @RequestErrorHandler([])
-  async getAdvertisings(merchandId: string, externalId = '') {
-    const response = await this._axiosClient.get<GetAdvertisingsSuccessRequest>(`/v1/merchants/${merchandId}/advertisings`, {
-      params: { externalId }
-    });
+  async getAdvertisings(merchandId: string, externalId = '', finished?: boolean) {
+    const response = await this._axiosClient.get<GetAdvertisingsSuccessRequest>(
+      `/v1/merchants/${merchandId}/advertisings`, {
+        params: { externalId, ...(typeof finished === 'boolean' ? { finished } : {}) }
+      }
+    );
 
     return response.data.advertisings;
   }
