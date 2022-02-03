@@ -269,6 +269,14 @@ export default class PoultryServiceClient {
     return response.data.poultry;
   }
 
+
+  @RequestErrorHandler()
+  async getPoultryDirectly(poultryId: string) {
+    const response = await this._axiosClient.get<GetPoultrySuccessRequest>(`/v1/poultries/${poultryId}`);
+
+    return response.data.poultry;
+  }
+
   @RequestErrorHandler()
   async rollbackBreeder(breederId: string) {
     await this._axiosClient.post(`/v1/breeders/${breederId}/rollback`);
