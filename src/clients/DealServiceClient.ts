@@ -44,12 +44,21 @@ export default class PoultryServiceClient {
   }
 
   @RequestErrorHandler([])
-  async getDeals({ sellerId, buyerId }: { sellerId?: string, buyerId?: string } = {}) {
+  async getDeals({
+    sellerId,
+    buyerId,
+    advertisingId
+  }: {
+    sellerId?: string;
+    buyerId?: string;
+    advertisingId?: string;
+  } = {}) {
     const { data } = await this._axiosClient.get<GetDealsSuccessRequest>(
       `/v1/deals?${[
         sellerId ? `sellerId=${sellerId}` : undefined,
-        buyerId ? `buyerId=${buyerId}` : undefined]
-        .filter(Boolean).join('&')}`
+        buyerId ? `buyerId=${buyerId}` : undefined,
+        advertisingId ? `advertisingId=${advertisingId}` : undefined,
+      ].filter(Boolean).join('&')}`
     );
 
     return data.deals;
