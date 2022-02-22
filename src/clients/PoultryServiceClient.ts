@@ -295,4 +295,38 @@ export default class PoultryServiceClient {
 
     return response.data.poultries;
   }
+
+  @RequestErrorHandler([])
+  async findPoultries({
+    gender = '',
+    genderCategory = '',
+    poultryIds = '',
+    dewlap = '',
+    tail = '',
+    crest = '',
+    type = '',
+    description = '',
+    name = '',
+    forSale = ''
+  }) {
+    const response = await this._axiosClient.get<GetPoultriesSuccessRequest>(
+      '/v1/poultries',
+      {
+        params: {
+          gender,
+          genderCategory,
+          poultryIds,
+          dewlap,
+          tail,
+          crest,
+          type,
+          description,
+          name,
+          forSale
+        }
+      }
+    );
+
+    return response.data.poultries;
+  }
 }
