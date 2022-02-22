@@ -1,6 +1,6 @@
 {
   "name": "@cig-platform/core",
-  "version": "0.6.31",
+  "version": "0.6.32",
   "description": "",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -25,7 +25,7 @@
   "dependencies": {
     "@cig-platform/decorators": "0.0.1",
     "@cig-platform/factories": "0.0.8",
-    "@cig-platform/types": "0.0.27",
+    "@cig-platform/types": "0.0.28",
     "axios": "^0.21.4",
     "express": "^4.17.1",
     "faker": "^5.5.3",

@@ -5,6 +5,7 @@ import {
   IAdvertising,
   IAdvertisingQuestion,
   IAdvertisingQuestionAnswer,
+  IAdvertisingFavorite
 } from '@cig-platform/types';
 import { RequestErrorHandler } from '@cig-platform/decorators';
 
@@ -51,6 +52,10 @@ interface GetAdvertisingsSuccessRequest extends AppRequest {
 
 interface GetAdvertisingSuccessRequest extends AppRequest {
   advertising: IAdvertising;
+}
+
+interface GetFavoritesSuccessRequest extends AppRequest {
+  favorites: IAdvertisingFavorite[];
 }
 
 export default class AdvertisingServiceClient {
@@ -103,6 +108,31 @@ export default class AdvertisingServiceClient {
     );
 
     return response.data.advertisingQuestion;
+  }
+
+  @RequestErrorHandler()
+  async postAdvertisingFavorite(merchantId: string, advertisingId: string, externalId: string) {
+    await this._axiosClient.post(
+      `/v1/merchants/${merchantId}/advertisings/${advertisingId}/favorites`,
+      { externalId }
+    );
+  }
+
+  @RequestErrorHandler()
+  async removeAdvertisingFavorite(merchantId: string, advertisingId: string, favoriteId: string) {
+    await this._axiosClient.delete(
+      `/v1/merchants/${merchantId}/advertisings/${advertisingId}/favorites/${favoriteId}`,
+    );
+  }
+
+  @RequestErrorHandler([])
+  async getFavorites(externalId: string) {
+    const response = await this._axiosClient.get<GetFavoritesSuccessRequest>(
+      '/v1/favorites',
+      { params: { externalId } }
+    );
+
+    return response.data.favorites;
   }
 
   @RequestErrorHandler([])
@@ -167,6 +197,26 @@ export default class AdvertisingServiceClient {
     const response = await this._axiosClient.get<GetAdvertisingsSuccessRequest>(
       `/v1/merchants/${merchandId}/advertisings`, {
         params: { externalId, ...(typeof finished === 'boolean' ? { finished } : {}) }
+      }
+    );
+
+    return response.data.advertisings;
+  }
+
+  @RequestErrorHandler([])
+  async searchAdvertisings({
+    advertisingIds = [],
+    sort
+  }: {
+    advertisingIds?: string[];
+    sort?: string;
+  }) {
+    const response = await this._axiosClient.get<GetAdvertisingsSuccessRequest>(
+      '/advertisings', {
+        params: {
+          ...(advertisingIds.length ? { advertisingIds: advertisingIds.join(',') } : {}),
+          ...(sort ? { sort } : {}),
+        }
       }
     );
 
