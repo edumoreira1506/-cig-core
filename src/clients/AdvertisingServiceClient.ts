@@ -172,4 +172,24 @@ export default class AdvertisingServiceClient {
 
     return response.data.advertisings;
   }
+
+  @RequestErrorHandler([])
+  async searchAdvertisings({
+    advertisingIds = [],
+    sort
+  }: {
+    advertisingIds?: string[];
+    sort?: string;
+  }) {
+    const response = await this._axiosClient.get<GetAdvertisingsSuccessRequest>(
+      '/advertisings', {
+        params: {
+          ...(advertisingIds.length ? { advertisingIds: advertisingIds.join(',') } : {}),
+          ...(sort ? { sort } : {}),
+        }
+      }
+    );
+
+    return response.data.advertisings;
+  }
 }
