@@ -72,8 +72,12 @@ interface GetPoultryImagesSuccessRequest extends AppRequest {
   }[]
 }
 
+interface Poultry extends IPoultry {
+  mainImage: string;
+  breederId: string;
+}
 interface GetPoultriesSuccessRequest extends AppRequest {
-  poultries: IPoultry & { mainImage: string; }[];
+  poultries: Poultry[];
 }
 
 interface GetPoultrySuccessRequest extends AppRequest {
