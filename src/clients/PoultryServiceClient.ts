@@ -302,13 +302,13 @@ export default class PoultryServiceClient {
 
   @RequestErrorHandler([])
   async findPoultries({
-    gender = '',
-    genderCategory = '',
+    gender = [] as string[],
+    genderCategory = [] as string[],
     poultryIds = '',
-    dewlap = '',
-    tail = '',
-    crest = '',
-    type = '',
+    dewlap = [] as string[],
+    tail = [] as string[],
+    crest = [] as string[],
+    type = [] as string[],
     description = '',
     name = '',
     forSale = ''
@@ -317,13 +317,13 @@ export default class PoultryServiceClient {
       '/v1/poultries',
       {
         params: {
-          gender,
-          genderCategory,
+          gender: gender.filter(Boolean).length ? gender.filter(Boolean).join(',') : undefined,
+          genderCategory: genderCategory.filter(Boolean).length ? genderCategory.filter(Boolean).join(',') : undefined,
           poultryIds,
-          dewlap,
-          tail,
-          crest,
-          type,
+          dewlap: dewlap.filter(Boolean).length ? dewlap.filter(Boolean).join(',') : undefined,
+          tail: tail.filter(Boolean).length ? tail.filter(Boolean).join(',') : undefined,
+          crest: crest.filter(Boolean).length ? crest.filter(Boolean).join(',') : undefined,
+          type: type.filter(Boolean).length ? type.filter(Boolean).join(',') : undefined,
           description,
           name,
           forSale
