@@ -317,13 +317,13 @@ export default class PoultryServiceClient {
       '/v1/poultries',
       {
         params: {
-          gender: gender.join(','),
-          genderCategory: genderCategory.join(','),
+          gender: gender.filter(Boolean).length ? gender.filter(Boolean).join(',') : undefined,
+          genderCategory: genderCategory.filter(Boolean).length ? genderCategory.filter(Boolean).join(',') : undefined,
           poultryIds,
-          dewlap: dewlap.join(','),
-          tail: tail.join(','),
-          crest: crest.join(','),
-          type: type.join(','),
+          dewlap: dewlap.filter(Boolean).length ? dewlap.filter(Boolean).join(',') : undefined,
+          tail: tail.filter(Boolean).length ? tail.filter(Boolean).join(',') : undefined,
+          crest: crest.filter(Boolean).length ? crest.filter(Boolean).join(',') : undefined,
+          type: type.filter(Boolean).length ? type.filter(Boolean).join(',') : undefined,
           description,
           name,
           forSale
