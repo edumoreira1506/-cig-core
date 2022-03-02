@@ -1,6 +1,7 @@
 import axios from 'axios';
 import faker from 'faker';
 import { userFactory } from '@cig-platform/factories';
+import { UserRegisterTypeEnum } from '@cig-platform/enums';
 
 import AccountServiceClient from '@Clients/AccountServiceClient';
 
@@ -75,8 +76,12 @@ describe('AccountServiceClient', () => {
 
       const accountServiceClient = new AccountServiceClient('');
 
-      expect(await accountServiceClient.authUser(authUserData.email, authUserData.password)).toBe(mockResponse.user);
-      expect(mockAxiosPost).toHaveBeenCalledWith('/v1/auth', authUserData);
+      expect(await accountServiceClient.authUser(
+        authUserData.email,
+        authUserData.password,
+        UserRegisterTypeEnum.Default
+      )).toBe(mockResponse.user);
+      expect(mockAxiosPost).toHaveBeenCalledWith('/v1/auth', expect.objectContaining(authUserData));
     });
   });
 

@@ -60,8 +60,8 @@ export default class AccountServiceClient {
   }
 
   @RequestErrorHandler()
-  async authUser(email: string, password: string) {
-    const response = await this._axiosClient.post<AuthUserRequest>('/v1/auth', { email, password });
+  async authUser(email: string, password: string, type: string, externalId?: string) {
+    const response = await this._axiosClient.post<AuthUserRequest>('/v1/auth', { email, password, type, externalId });
 
     return response.data.user;
   }

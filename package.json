@@ -1,6 +1,6 @@
 {
   "name": "@cig-platform/core",
-  "version": "0.7.1",
+  "version": "0.7.2",
   "description": "",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -24,8 +24,9 @@
   "homepage": "https://github.com/edumoreira1506/-cig-core#readme",
   "dependencies": {
     "@cig-platform/decorators": "0.0.1",
+    "@cig-platform/enums": "0.0.4",
     "@cig-platform/factories": "0.0.16",
-    "@cig-platform/types": "0.0.29",
+    "@cig-platform/types": "0.0.30",
     "axios": "^0.21.4",
     "express": "^4.17.1",
     "faker": "^5.5.3",
