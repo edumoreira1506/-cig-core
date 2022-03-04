@@ -311,7 +311,24 @@ export default class PoultryServiceClient {
     type = [] as string[],
     description = '',
     name = '',
-    forSale = ''
+    forSale = '',
+    prices,
+    sort = '',
+    page
+  }: {
+    gender?: string[];
+    genderCategory?: string[];
+    poultryIds?: string;
+    dewlap?: string[];
+    tail?: string[];
+    crest?: string[];
+    type?: string[];
+    description?: string;
+    name?: string;
+    forSale?: string;
+    prices?: { min: number; max: number };
+    sort?: string;
+    page?: number;
   }) {
     const response = await this._axiosClient.get<GetPoultriesSuccessRequest>(
       '/v1/poultries',
@@ -326,7 +343,10 @@ export default class PoultryServiceClient {
           type: type.filter(Boolean).length ? type.filter(Boolean).join(',') : undefined,
           description,
           name,
-          forSale
+          forSale,
+          prices: typeof prices?.min === 'number' && typeof prices?.max === 'number' ? JSON.stringify(prices) : undefined,
+          sort,
+          page: typeof page === 'number' ? page.toString() : undefined
         }
       }
     );
