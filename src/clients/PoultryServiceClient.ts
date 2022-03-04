@@ -353,6 +353,6 @@ export default class PoultryServiceClient {
       }
     );
 
-    return response.data.poultries;
+    return response.data;
   }
 }
