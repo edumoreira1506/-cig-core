@@ -76,7 +76,9 @@ interface Poultry extends IPoultry {
   mainImage: string;
   breederId: string;
 }
+
 interface GetPoultriesSuccessRequest extends AppRequest {
+  pages: number;
   poultries: Poultry[];
 }
 
