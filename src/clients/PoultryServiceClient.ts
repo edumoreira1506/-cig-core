@@ -300,7 +300,7 @@ export default class PoultryServiceClient {
       { params: { gender, genderCategory, poultryIds, page } }
     );
 
-    return response.data.poultries;
+    return response.data;
   }
 
   @RequestErrorHandler([])
