@@ -8,6 +8,7 @@ interface PostDealSuccessRequest extends AppRequest {
 
 interface GetDealsSuccessRequest extends AppRequest {
   deals: IDeal[];
+  pages: number;
 }
 
 interface GetDealSuccessRequest extends AppRequest {
@@ -47,21 +48,24 @@ export default class PoultryServiceClient {
   async getDeals({
     sellerId,
     buyerId,
-    advertisingId
+    advertisingId,
+    page
   }: {
     sellerId?: string;
     buyerId?: string;
     advertisingId?: string;
+    page?: number;
   } = {}) {
     const { data } = await this._axiosClient.get<GetDealsSuccessRequest>(
       `/v1/deals?${[
         sellerId ? `sellerId=${sellerId}` : undefined,
         buyerId ? `buyerId=${buyerId}` : undefined,
         advertisingId ? `advertisingId=${advertisingId}` : undefined,
+        page ? `page=${page}` : undefined,
       ].filter(Boolean).join('&')}`
     );
 
-    return data.deals;
+    return data;
   }
 
   @RequestErrorHandler()
