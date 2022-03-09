@@ -10,12 +10,22 @@ interface BaseEntity {
 export default class BaseRepository<T extends BaseEntity> extends Repository<T> {
   @ErrorHandler()
   findById(id: string) {
-    return this.findOne({ id, active: true });
+    return this.findOne({
+      where: {
+        id,
+        active: true
+      }
+    } as any);
   }
 
   @ErrorHandler()
   findByField(fieldName: keyof T, fieldValue: any) {
-    return this.findOne({ [fieldName]: fieldValue, active: true });
+    return this.findOne({
+      where: {
+        [fieldName]: fieldValue,
+        active: true
+      }
+    } as any);
   }
 
   @ErrorHandler([])
@@ -33,6 +43,6 @@ export default class BaseRepository<T extends BaseEntity> extends Repository<T> 
   }
 
   updateById(id: string, fields: QueryDeepPartialEntity<T>) {
-    return this.update({ id }, fields);
+    return this.update({ id } as any, fields);
   }
 }

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import faker from 'faker';
+import faker from '@faker-js/faker';
 import { userFactory } from '@cig-platform/factories';
 import { UserRegisterTypeEnum } from '@cig-platform/enums';
 

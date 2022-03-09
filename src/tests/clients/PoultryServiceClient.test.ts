@@ -1,5 +1,5 @@
 import axios from 'axios';
-import faker from 'faker';
+import faker from '@faker-js/faker';
 
 import PoultryServiceClient from '@Clients/PoultryServiceClient';
 import { breederFactory, poultryFactory } from '@cig-platform/factories';
