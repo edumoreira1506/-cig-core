@@ -6,7 +6,7 @@ import { withTokenAuthorizationFactory } from '@Middlewares/withTokenAuthorizati
 describe('withTokenAuthorization', () => {
   it('calls next when is a valid token', async () => {
     const user = userFactory();
-    const token = jwt.sign({ user }, 'FAKE SECRET');
+    const token = jwt.sign({ id: user.id }, 'FAKE SECRET');
     const mockErrorCallback = jest.fn();
     const mockAccountServiceClient: any = {
       getUser: jest.fn().mockResolvedValue(user)
@@ -76,7 +76,7 @@ describe('withTokenAuthorization', () => {
 
   it('calls errorCallback when user does not exist', async () => {
     const user = userFactory();
-    const token = jwt.sign({ user }, 'FAKE SECRET');
+    const token = jwt.sign({ id: user.id }, 'FAKE SECRET');
     const mockErrorCallback = jest.fn();
     const mockAccountServiceClient: any = {
       getUser: jest.fn().mockResolvedValue(null)
