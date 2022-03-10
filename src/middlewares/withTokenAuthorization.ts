@@ -21,9 +21,9 @@ export const withTokenAuthorizationFactory = (
     if (!tokenData?.ok) throw new AuthError();
 
     const userDataToken = jwt.decode(tokenData.token, { complete: true });
-    const userData = await accountServiceClient.getUser(String((userDataToken as any)?.payload?.user?.id));
+    const userData = await accountServiceClient.getUser(String((userDataToken as any)?.payload?.id));
 
-    if (userData?.id !== (userDataToken as any)?.payload?.user?.id) throw new AuthError();
+    if (userData?.id !== (userDataToken as any)?.payload?.id) throw new AuthError();
 
     req.user = userData;
     req.merchant = (userDataToken as any)?.payload?.merchant;
