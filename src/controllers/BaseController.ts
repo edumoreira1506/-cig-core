@@ -70,4 +70,16 @@ export default class BaseController<T, I extends BaseRepository<any>> {
       return descriptor;
     };
   }
+
+  static jsonStringToObject(data?: string) {
+    try {
+      const parsedData = JSON.parse(data ?? '{}');
+
+      return parsedData;
+    } catch (error) {
+      console.log('ERROR::getBodyDataInJson', error);
+
+      return undefined;
+    }
+  }
 }
