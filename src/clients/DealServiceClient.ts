@@ -9,6 +9,7 @@ interface PostDealSuccessRequest extends AppRequest {
 interface GetDealsSuccessRequest extends AppRequest {
   deals: IDeal[];
   pages: number;
+  total: number;
 }
 
 interface GetDealSuccessRequest extends AppRequest {
