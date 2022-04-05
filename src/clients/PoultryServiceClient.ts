@@ -215,6 +215,11 @@ export default class PoultryServiceClient {
     return this._axiosClient.delete(`/v1/breeders/${breederId}/contacts/${contactId}`); 
   }
 
+  @RequestErrorHandler()
+  async rollbackBreederContact(breederId: string, contactId: string) {
+    return this._axiosClient.post(`/v1/breeders/${breederId}/contacts/${contactId}/rollback`); 
+  }
+
   @RequestErrorHandler([])
   async getContacts(breederId: string) {
     const response = await this._axiosClient.get<GetContactsSuccessRequest>(
