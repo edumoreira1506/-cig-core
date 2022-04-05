@@ -54,6 +54,10 @@ interface GetAdvertisingSuccessRequest extends AppRequest {
   advertising: IAdvertising;
 }
 
+interface GetAdvertisingFavoritesSuccessRequest extends AppRequest {
+  favorites: IAdvertisingFavorite[];
+}
+
 interface GetFavoritesSuccessRequest extends AppRequest {
   favorites: IAdvertisingFavorite[];
 }
@@ -116,6 +120,13 @@ export default class AdvertisingServiceClient {
       `/v1/merchants/${merchantId}/advertisings/${advertisingId}/favorites`,
       { externalId }
     );
+  }
+
+  @RequestErrorHandler([])
+  async getAdvertisingFavorites(merchantId: string, advertisingId: string) {
+    const { data } = await this._axiosClient.get<GetAdvertisingFavoritesSuccessRequest>(`/v1/merchants/${merchantId}/advertisings/${advertisingId}/favorites`);
+
+    return data.favorites;
   }
 
   @RequestErrorHandler()
