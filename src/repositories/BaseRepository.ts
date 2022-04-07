@@ -1,48 +1,43 @@
 import { FindManyOptions, Repository } from 'typeorm';
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
-import { ErrorHandler } from '@cig-platform/decorators';
 
-interface BaseEntity {
-  id: string;
-  active: boolean;
-}
+export type CustomRepository<T> = {
+  findById: (id: string) => Promise<T | undefined>;
+  findByField: (fieldName: string, fieldValue: any) => Promise<T | undefined>;
+  all: (fields?: FindManyOptions<T>) => Promise<T[]>;
+  updateById: (id: string, fields: QueryDeepPartialEntity<T>) => Promise<void>;
+} & Repository<T>;
 
-export default class BaseRepository<T extends BaseEntity> extends Repository<T> {
-  @ErrorHandler()
+export const BaseRepositoryFunctionsGenerator = <T>() => ({
   findById(id: string) {
     return this.findOne({
       where: {
         id,
         active: true
-      }
-    } as any);
-  }
-
-  @ErrorHandler()
-  findByField(fieldName: keyof T, fieldValue: any) {
+      } as any
+    });
+  },
+  findByField(fieldName: string, fieldValue: any) {
     return this.findOne({
       where: {
         [fieldName]: fieldValue,
         active: true
-      }
-    } as any);
-  }
-
-  @ErrorHandler([])
+      } as any
+    });
+  },
   all(fields?: FindManyOptions<T>) {
     const originalWhere = fields?.where ?? {};
     const where = {
       ...(typeof originalWhere === 'string' ? {} : originalWhere),
       active: true,
-    };
+    } as any;
 
     return this.find({
       ...fields,
-      where
+      where,
     });
+  },
+  async updateById(id: string, fields: QueryDeepPartialEntity<T>) {
+    await this.update({ id } as any, fields);
   }
-
-  updateById(id: string, fields: QueryDeepPartialEntity<T>) {
-    return this.update({ id } as any, fields);
-  }
-}
+} as CustomRepository<T>);

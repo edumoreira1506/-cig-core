@@ -3,12 +3,11 @@ import { NextFunction, Response } from 'express';
 import ApiError from '@Errors/ApiError';
 import NotFoundError from '@Errors/NotFoundError';
 import BaseController from '@Controllers/BaseController';
-import BaseRepository from '@Repositories/BaseRepository';
 
-export default function withRequestParam<R extends BaseRepository<any>, E>(
+export default function withRequestParam<E>(
   paramName: string,
   requestParamName: string,
-  controller: BaseController<E, R>,
+  controller: BaseController<E>,
   errorCallback: (res: Response, error: ApiError) => Response = BaseController.errorResponse,
 ) {
   return async (request: any, response: Response, next: NextFunction): Promise<void | Response<string, Record<string, string>>> => {

@@ -8,7 +8,7 @@ export { default as AccountServiceClient } from './clients/AccountServiceClient'
 export { default as PoultryServiceClient } from './clients/PoultryServiceClient';
 export { default as AdvertisingServiceClient } from './clients/AdvertisingServiceClient';
 export { default as DealServiceClient } from './clients/DealServiceClient';
-export { default as BaseRepository } from './repositories/BaseRepository';
+export * from './repositories/BaseRepository';
 export { default as withRequestParam } from './middlewares/withRequestParam';
 export * from './middlewares/withTokenAuthorization';
 export * from './utils/form';
