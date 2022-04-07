@@ -231,7 +231,8 @@ export default class AdvertisingServiceClient {
     crest = [],
     description,
     name,
-    prices
+    prices,
+    page,
   }: {
     advertisingIds?: string[];
     sort?: string;
@@ -245,6 +246,7 @@ export default class AdvertisingServiceClient {
     description?: string;
     name?: string;
     prices?: { min: number; max: number };
+    page?: number;
   }) {
     const response = await this._axiosClient.get<GetAdvertisingsSearchSuccessRequest>(
       '/advertisings', {
@@ -260,6 +262,7 @@ export default class AdvertisingServiceClient {
           ...(sort ? { sort } : {}),
           ...(name ? { name } : {}),
           ...(description ? { description } : {}),
+          ...(typeof page === 'number' ? { page } : {}),
           prices: typeof prices?.min === 'number' && typeof prices?.max === 'number' ? JSON.stringify(prices) : undefined,
         }
       }
