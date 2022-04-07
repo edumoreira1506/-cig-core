@@ -50,6 +50,10 @@ interface GetAdvertisingsSuccessRequest extends AppRequest {
   advertisings: IAdvertising[];
 }
 
+interface GetAdvertisingsSearchSuccessRequest extends GetAdvertisingsSuccessRequest {
+  pages: number;
+}
+
 interface GetAdvertisingSuccessRequest extends AppRequest {
   advertising: IAdvertising;
 }
@@ -217,20 +221,50 @@ export default class AdvertisingServiceClient {
   @RequestErrorHandler([])
   async searchAdvertisings({
     advertisingIds = [],
-    sort
+    sort,
+    favoriteExternalId,
+    gender = [],
+    genderCategory = [],
+    type = [],
+    tail = [],
+    dewlap = [],
+    crest = [],
+    description,
+    name,
+    prices
   }: {
     advertisingIds?: string[];
     sort?: string;
+    favoriteExternalId?: string;
+    gender?: string[];
+    genderCategory?: string[];
+    type?: string[];
+    tail?: string[];
+    dewlap?: string[];
+    crest?: string[];
+    description?: string;
+    name?: string;
+    prices?: { min: number; max: number };
   }) {
-    const response = await this._axiosClient.get<GetAdvertisingsSuccessRequest>(
+    const response = await this._axiosClient.get<GetAdvertisingsSearchSuccessRequest>(
       '/advertisings', {
         params: {
           ...(advertisingIds.length ? { advertisingIds: advertisingIds.join(',') } : {}),
+          ...(tail.length ? { tail: tail.join(',') } : {}),
+          ...(dewlap.length ? { dewlap: dewlap.join(',') } : {}),
+          ...(crest.length ? { crest: crest.join(',') } : {}),
+          ...(gender.length ? { gender: gender.join(',') } : {}),
+          ...(genderCategory.length ? { genderCategory: genderCategory.join(',') } : {}),
+          ...(type.length ? { type: type.join(',') } : {}),
+          ...(favoriteExternalId ? { favoriteExternalId } : {}),
           ...(sort ? { sort } : {}),
+          ...(name ? { name } : {}),
+          ...(description ? { description } : {}),
+          prices: typeof prices?.min === 'number' && typeof prices?.max === 'number' ? JSON.stringify(prices) : undefined,
         }
       }
     );
 
-    return response.data.advertisings;
+    return response.data;
   }
 }
