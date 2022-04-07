@@ -1,20 +1,21 @@
 import { Response } from 'express';
-import { getCustomRepository, ObjectType } from 'typeorm';
+import { DataSource, ObjectType } from 'typeorm';
 import { ApiErrorType } from '@cig-platform/types';
+import { CustomRepository } from '@Repositories/BaseRepository';
 
-import BaseRepository from '@Repositories/BaseRepository';
-
-export default class BaseController<T, I extends BaseRepository<any>> {
+export default class BaseController<T> {
   protected entity: ObjectType<T>;
+  protected dataSource: DataSource;
 
-  get repository(): I {
-    const repository = getCustomRepository<I>(this.entity);
+  get repository(): CustomRepository<T> {
+    const repository = this.dataSource.getRepository<T>(this.entity);
 
-    return repository;
+    return repository as CustomRepository<T>;
   }
 
-  constructor(entityParam: ObjectType<T>) {
+  constructor(entityParam: ObjectType<T>, dataSource: DataSource) {
     this.entity = entityParam;
+    this.dataSource = dataSource;
   }
 
   static successResponse(res: Response, payload: Record<string, unknown>): Response {
