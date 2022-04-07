@@ -249,7 +249,7 @@ export default class AdvertisingServiceClient {
     page?: number;
   }) {
     const response = await this._axiosClient.get<GetAdvertisingsSearchSuccessRequest>(
-      '/advertisings', {
+      '/v1/advertisings', {
         params: {
           ...(advertisingIds.length ? { advertisingIds: advertisingIds.join(',') } : {}),
           ...(tail.length ? { tail: tail.join(',') } : {}),
