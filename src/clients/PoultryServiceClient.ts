@@ -320,7 +320,6 @@ export default class PoultryServiceClient {
     description = '',
     name = '',
     forSale = '',
-    prices,
     sort = '',
     page
   }: {
@@ -334,7 +333,6 @@ export default class PoultryServiceClient {
     description?: string;
     name?: string;
     forSale?: string;
-    prices?: { min: number; max: number };
     sort?: string;
     page?: number;
   }) {
@@ -352,7 +350,6 @@ export default class PoultryServiceClient {
           description,
           name,
           forSale,
-          prices: typeof prices?.min === 'number' && typeof prices?.max === 'number' ? JSON.stringify(prices) : undefined,
           sort,
           page: typeof page === 'number' ? page.toString() : undefined
         }
