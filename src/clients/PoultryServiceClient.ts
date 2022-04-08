@@ -320,7 +320,6 @@ export default class PoultryServiceClient {
     description = '',
     name = '',
     forSale = '',
-    sort = '',
     page
   }: {
     gender?: string[];
@@ -333,7 +332,6 @@ export default class PoultryServiceClient {
     description?: string;
     name?: string;
     forSale?: string;
-    sort?: string;
     page?: number;
   }) {
     const response = await this._axiosClient.get<GetPoultriesSuccessRequest>(
@@ -350,7 +348,6 @@ export default class PoultryServiceClient {
           description,
           name,
           forSale,
-          sort,
           page: typeof page === 'number' ? page.toString() : undefined
         }
       }
