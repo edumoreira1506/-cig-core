@@ -7,13 +7,10 @@ describe('withRequestParam', () => {
     const mockRequestParam = 'param';
     const mockParam = 'param';
     const mockErrorCallback = jest.fn();
-    const mockRepository = {
+    const mockRepository: any = {
       findById: jest.fn().mockResolvedValue(entity)
     };
-    const mockController: any = {
-      repository: mockRepository
-    };
-    const withUserParam = withRequestParamFactory(mockParam, mockRequestParam, mockController, mockErrorCallback);
+    const withUserParam = withRequestParamFactory(mockParam, mockRequestParam, mockRepository, mockErrorCallback);
     const mockRequest: any = {};
     const mockResponse: any = {};
     const mockNext = jest.fn();
@@ -30,13 +27,10 @@ describe('withRequestParam', () => {
     const mockRequestParam = 'param';
     const mockParam = 'param';
     const mockErrorCallback = jest.fn();
-    const mockRepository = {
+    const mockRepository: any = {
       findById: jest.fn().mockRejectedValue(error)
     };
-    const mockController: any = {
-      repository: mockRepository
-    };
-    const withUserParam = withRequestParamFactory(mockParam, mockRequestParam, mockController, mockErrorCallback);
+    const withUserParam = withRequestParamFactory(mockParam, mockRequestParam, mockRepository, mockErrorCallback);
     const mockRequest = {};
     const mockResponse: any = {};
     const mockNext = jest.fn();
@@ -52,13 +46,10 @@ describe('withRequestParam', () => {
     const mockRequestParam = 'param';
     const mockParam = 'param';
     const mockErrorCallback = jest.fn();
-    const mockRepository = {
+    const mockRepository: any = {
       findById: jest.fn().mockResolvedValue(entity)
     };
-    const mockController: any = {
-      repository: mockRepository
-    };
-    const withUserParam = withRequestParamFactory(mockParam, mockRequestParam, mockController, mockErrorCallback);
+    const withUserParam = withRequestParamFactory(mockParam, mockRequestParam, mockRepository, mockErrorCallback);
     const mockRequest = {};
     const mockResponse: any = {};
     const mockNext = jest.fn();
