@@ -180,18 +180,21 @@ export default class AdvertisingServiceClient {
     advertisingId,
     price,
     finished,
-    favoritesAmount
+    favoritesAmount,
+    metadata
   }: {
     merchantId: string;
     advertisingId: string;
     price?: number;
     finished?: boolean;
     favoritesAmount?: number;
+    metadata?: Record<string, any>;
   }) {
     return this._axiosClient.patch( `/v1/merchants/${merchantId}/advertisings/${advertisingId}`, {
       price,
       favoritesAmount,
-      ...(typeof finished === 'boolean' ? { finished } : {})
+      ...(typeof finished === 'boolean' ? { finished } : {}),
+      metadata
     });
   }
 
