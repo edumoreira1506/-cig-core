@@ -1,12 +1,15 @@
-import { userFactory } from '@cig-platform/factories';
+import { merchantFactory, userFactory } from '@cig-platform/factories';
 import jwt from 'jsonwebtoken';
 
 import { withTokenAuthorizationFactory } from '@Middlewares/withTokenAuthorization';
+import { IBreeder } from '@cig-platform/types';
 
 describe('withTokenAuthorization', () => {
   it('calls next when is a valid token', async () => {
     const user = userFactory();
-    const token = jwt.sign({ id: user.id }, 'FAKE SECRET');
+    const merchant = merchantFactory();
+    const breeders: IBreeder[] = [];
+    const token = jwt.sign({ id: user.id, merchant, breeders }, 'FAKE SECRET');
     const mockErrorCallback = jest.fn();
     const mockAccountServiceClient: any = {
       getUser: jest.fn().mockResolvedValue(user)
@@ -26,6 +29,8 @@ describe('withTokenAuthorization', () => {
     expect(mockNext).toHaveBeenCalled();
     expect(mockAuthBffClient.refreshToken).toHaveBeenCalledWith(token);
     expect(mockRequest.user).toMatchObject(user);
+    expect(mockRequest.breeders).toMatchObject(breeders);
+    expect(mockRequest.merchant).toMatchObject(merchant);
   });
 
   it('calls errorCallback when token is not sent', async () => {
