@@ -1,10 +1,23 @@
 import { NextFunction, Response } from 'express';
-import { ApiErrorType, AuthenticatedRequest } from '@cig-platform/types';
+import { ApiErrorType, AuthenticatedRequest, IAdvertisingFavorite, IBreeder, IMerchant } from '@cig-platform/types';
 import jwt from 'jsonwebtoken';
 import AuthBffClient from '@cig-platform/auth-bff-client';
 
 import AuthError from '@Errors/AuthError';
 import AccountServiceClient from '@Clients/AccountServiceClient';
+import { UserRegisterTypeEnum } from '@cig-platform/enums';
+
+type DecodedToken = {
+  email: string;
+  id: string;
+  name: string;
+  registerType: UserRegisterTypeEnum,
+  breeders: IBreeder[];
+  merchant: IMerchant;
+  favorites: IAdvertisingFavorite[];
+  iat: number;
+  exp: number;
+}
 
 export const withTokenAuthorizationFactory = (
   authBffClient: AuthBffClient,
@@ -20,13 +33,19 @@ export const withTokenAuthorizationFactory = (
 
     if (!tokenData?.ok) throw new AuthError();
 
-    const userDataToken = jwt.decode(tokenData.token, { complete: true });
-    const userData = await accountServiceClient.getUser(String((userDataToken as any)?.payload?.id));
+    const userDataToken  = jwt.decode(tokenData.token, { complete: true });
 
-    if (userData?.id !== (userDataToken as any)?.payload?.id) throw new AuthError();
+    if (!userDataToken?.payload) throw new AuthError();
+
+    const tokenPayload = userDataToken.payload as Partial<DecodedToken>;
+
+    const userData = await accountServiceClient.getUser(String(tokenPayload.id));
+
+    if (userData?.id !== tokenPayload.id) throw new AuthError();
 
     req.user = userData;
-    req.merchant = (userDataToken as any)?.payload?.merchant;
+    req.merchant = tokenPayload.merchant;
+    req.breeders = tokenPayload.breeders;
 
     next();
   } catch (error: any) {
