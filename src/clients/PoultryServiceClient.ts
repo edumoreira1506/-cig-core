@@ -142,6 +142,11 @@ export default class PoultryServiceClient {
     });
   }
 
+  @RequestErrorHandler()
+  killPoultry(breederId: string, poultryId: string) {
+    return this._axiosClient.post(`/v1/breeders/${breederId}/poultries/${poultryId}/kill`);
+  }
+
   @RequestErrorHandler([])
   async getRegisters(breederId: string, poultryId: string, registerType = '') {
     const response = await this._axiosClient.get<GetRegistersSuccessRequest>(
