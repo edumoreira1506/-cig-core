@@ -303,11 +303,12 @@ export default class PoultryServiceClient {
     gender = '',
     genderCategory = '',
     poultryIds = '',
-    page = 0
+    page = 0,
+    name = ''
   }) {
     const response = await this._axiosClient.get<GetPoultriesSuccessRequest>(
       `/v1/breeders/${breederId}/poultries`,
-      { params: { gender, genderCategory, poultryIds, page } }
+      { params: { gender, genderCategory, poultryIds, page, name } }
     );
 
     return response.data;
