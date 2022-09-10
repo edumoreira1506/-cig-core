@@ -23,10 +23,11 @@ interface AuthUserRequest extends AppRequest {
 export default class AccountServiceClient {
   _axiosClient: AxiosInstance;
 
-  constructor(accountServiceUrl: string) {
+  constructor(accountServiceUrl: string, apiKey: string) {
     this._axiosClient = axios.create({
       baseURL: accountServiceUrl,
       headers: {
+        'Cig-Api-Key': apiKey,
         'Accept': 'application/json',
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
