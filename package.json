@@ -23,6 +23,7 @@
   },
   "homepage": "https://github.com/edumoreira1506/-cig-core#readme",
   "dependencies": {
+    "@cig-platform/api-keys-client": "^0.0.1",
     "@cig-platform/auth-bff-client": "^0.1.12",
     "@cig-platform/decorators": "0.0.3",
     "@cig-platform/enums": "0.0.6",
