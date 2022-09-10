@@ -22,7 +22,7 @@ describe('AccountServiceClient', () => {
 
       jest.spyOn(axios, 'create').mockImplementation(mockAxiosCreate);
 
-      const accountServiceClient = new AccountServiceClient('');
+      const accountServiceClient = new AccountServiceClient('', '');
 
       expect(await accountServiceClient.postUser(mockResponse.user)).toBe(mockResponse.user);
       expect(mockAxiosPost).toHaveBeenCalledWith('/v1/users', mockResponse.user);
@@ -47,7 +47,7 @@ describe('AccountServiceClient', () => {
 
       jest.spyOn(axios, 'create').mockImplementation(mockAxiosCreate);
 
-      const accountServiceClient = new AccountServiceClient('');
+      const accountServiceClient = new AccountServiceClient('', '');
 
       expect(await accountServiceClient.getUser(mockUserId)).toBe(mockResponse.user);
       expect(mockAxiosGet).toHaveBeenCalledWith(`/v1/users/${mockUserId}`);
@@ -74,7 +74,7 @@ describe('AccountServiceClient', () => {
 
       jest.spyOn(axios, 'create').mockImplementation(mockAxiosCreate);
 
-      const accountServiceClient = new AccountServiceClient('');
+      const accountServiceClient = new AccountServiceClient('', '');
 
       expect(await accountServiceClient.authUser(
         authUserData.email,
@@ -102,7 +102,7 @@ describe('AccountServiceClient', () => {
 
       jest.spyOn(axios, 'create').mockImplementation(mockAxiosCreate);
 
-      const accountServiceClient = new AccountServiceClient('');
+      const accountServiceClient = new AccountServiceClient('', '');
 
       expect(await accountServiceClient.getUsers({ email })).toBe(mockResponse.users);
       expect(mockAxiosGet).toHaveBeenCalledWith('/v1/users', { params: { email } });

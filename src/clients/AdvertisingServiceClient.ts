@@ -69,11 +69,12 @@ interface GetFavoritesSuccessRequest extends AppRequest {
 export default class AdvertisingServiceClient {
   _axiosClient: AxiosInstance;
 
-  constructor(advertisingServiceUrl: string) {
+  constructor(advertisingServiceUrl: string, apiKey: string) {
     this._axiosClient = axios.create({
       baseURL: advertisingServiceUrl,
       headers: {
         'Accept': 'application/json',
+        'Cig-Api-Key': apiKey,
         'Content-Type': 'application/json',
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Methods': 'GET,PUT,POST,DELETE,PATCH',

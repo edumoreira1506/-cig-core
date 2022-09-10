@@ -89,9 +89,12 @@ interface GetPoultrySuccessRequest extends AppRequest {
 export default class PoultryServiceClient {
   _axiosClient: AxiosInstance;
 
-  constructor(breederServiceUrl: string) {
+  constructor(breederServiceUrl: string, apiKey: string) {
     this._axiosClient = axios.create({
       baseURL: breederServiceUrl,
+      headers: {
+        'Cig-Api-Key': apiKey,
+      }
     });
   }
 

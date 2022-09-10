@@ -27,9 +27,12 @@ interface GetDealEventsSuccessRequest extends AppRequest {
 export default class PoultryServiceClient {
   _axiosClient: AxiosInstance;
 
-  constructor(dealServiceUrl: string) {
+  constructor(dealServiceUrl: string, apiKey: string) {
     this._axiosClient = axios.create({
       baseURL: dealServiceUrl,
+      headers: {
+        'Cig-Api-Key': apiKey,
+      }
     });
   }
 
