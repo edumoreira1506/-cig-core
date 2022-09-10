@@ -11,4 +11,5 @@ export { default as DealServiceClient } from './clients/DealServiceClient';
 export * from './repositories/BaseRepository';
 export { default as withRequestParam } from './middlewares/withRequestParam';
 export * from './middlewares/withTokenAuthorization';
+export * from './middlewares/withApiKeyValidation';
 export * from './utils/form';
